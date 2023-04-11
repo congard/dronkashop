@@ -1,0 +1,9 @@
+query PersonQuery($pName: ID!) {
+    person(name:$pName) {
+        name
+        born
+        actedIn {
+            title
+        }
+    }
+}
