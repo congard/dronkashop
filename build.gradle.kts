@@ -48,3 +48,43 @@ fun TaskProvider<JavaCompile>.useUTF8() {
 
 tasks.compileJava.useUTF8()
 tasks.compileTestJava.useUTF8()
+
+val buildConfigDir = "$buildDir/generated/source/buildConfig"
+
+// generate credentials object
+run {
+    val credentialsFile = File("${System.getProperty("user.dir")}/credentials.txt")
+
+    if (!credentialsFile.exists())
+        throw RuntimeException("File $credentialsFile not found")
+
+    val (uri, user, password) = credentialsFile.readText().split("\n").also {
+        if (it.size < 3) {
+            throw RuntimeException(
+                "Invalid credentials file: 3 lines expected (uri, user, password); got: ${it.size}")
+        } else if (it.size > 3) {
+            println("Warning: maybe invalid credentials file: 3 lines expected (uri, user, password); got: ${it.size}")
+        }
+    }
+
+    val src = """
+        object DBCredentials {
+            const val URI: String = "$uri"
+            const val USER: String = "$user"
+            const val PASSWORD: String = "$password"
+        }
+    """.trimIndent()
+
+    File(buildConfigDir).apply { if (!exists()) mkdirs() }
+    File("$buildConfigDir/DBCredentials.kt").writeText(src)
+}
+
+kotlin.sourceSets {
+    println("$buildDir")
+
+    main {
+        kotlin.srcDirs(
+            file(buildConfigDir),
+        )
+    }
+}
