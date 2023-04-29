@@ -1,0 +1,19 @@
+query userOrders($user: ID!){
+    user(login:$user){
+        displayName
+        belongsTo{
+            name
+        }
+        has{
+            date
+            includes{
+                name
+                price
+                quantity
+            }
+            payedWith{
+                type
+            }
+        }
+    }
+}

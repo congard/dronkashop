@@ -9,13 +9,21 @@ fun main() {
 }
 
 fun start() {
-    val query = Resource.gets("/query/PersonQuery.graphql")
-    val params = HashMap<String, Any>().also {
-        it["pName"] = "Tom Hanks"
+    var query = Resource.gets("/query/allItems.graphql")
+    var params = HashMap<String, Any>()
+
+    DBProvider.session().use { session ->
+        val result = session.run(GraphQLProvider.translate(query, params))
+        result.list().forEach{x -> println(x)}
+    }
+
+    query = Resource.gets("/query/userOrders.graphql")
+    params = HashMap<String, Any>().also {
+        it["user"] = "janusz123"
     }
 
     DBProvider.session().use { session ->
         val result = session.run(GraphQLProvider.translate(query, params))
-        println(result.single()[0])
+        result.list().forEach{x -> println(x)}
     }
 }

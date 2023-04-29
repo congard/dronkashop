@@ -1,0 +1,10 @@
+query itemCategory($itemName: ID!){
+    item(name:$itemName){
+        name
+        description
+        belongsTo{
+            name
+            description
+        }
+    }
+}

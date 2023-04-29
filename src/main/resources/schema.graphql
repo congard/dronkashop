@@ -1,11 +1,50 @@
-type Person {
+type Item {
     name: ID!
-    born: Int
-    actedIn: [Movie] @relation(name:"ACTED_IN")
+    description: String!
+    quantity: Int!
+    price: Float!
+    date: String!
+    isDiscontinued: Boolean!
+    belongsTo: [Category!]! @relation(name: "BelongsTo")
+    publishedBy: User! @relation(name: "PublishedBy")
 }
 
-type Movie {
-    title: ID!
-    released: Int
-    tagline: String
+type Category {
+    name: ID!
+    description: String!
+    includes: [Item!]! @relation(name: "Includes")
+}
+
+type User {
+    displayName: String!
+    login: ID!
+    passwordHash: String!
+    email: String!
+    registrationDate: String!
+    belongsTo: Role! @relation(name: "BelongsTo")
+    has: [Order!]! @relation(name: "Has")
+    sells: [Item!]! @relation(name: "Sells")
+}
+
+type Role {
+    name: ID!
+    description: String!
+    includes: [User!]! @relation(name: "Includes")
+}
+
+type Order {
+    isPayed: Boolean!
+    isCancelled: Boolean!
+    date: String!
+    quantity: Int!
+    includes: [Item!]! @relation(name: "Includes")
+    by: User! @relation(name: "By")
+    payedWith: Payment! @relation(name: "PayedWith")
+}
+
+type Payment {
+    date: String!
+    amount: Float!
+    type: String!
+    belongsTo: Order! @relation(name: "belongsTo")
 }
