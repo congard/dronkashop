@@ -36,12 +36,13 @@ type Order {
     isPayed: Boolean!
     isCancelled: Boolean!
     date: String!
-    quantity: Int!
-    includes: [Item!]! @relation(name: "Includes")
+    includes: [Item!]! @relation(name: "Includes", properties: "OrderItem")
     by: User! @relation(name: "By")
     payedWith: Payment! @relation(name: "PayedWith")
 }
-
+interface OrderItem @relationshipProperties {
+    quantity: Int!
+}
 type Payment {
     date: String!
     amount: Float!
