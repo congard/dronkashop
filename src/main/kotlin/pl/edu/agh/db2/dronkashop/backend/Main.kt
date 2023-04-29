@@ -14,7 +14,7 @@ fun start() {
 
     DBProvider.session().use { session ->
         val result = session.run(GraphQLProvider.translate(query, params))
-        result.list().forEach{x -> println(x)}
+        result.list().forEach { x -> println(x) }
     }
 
     query = Resource.gets("/query/userOrders.graphql")
@@ -24,6 +24,6 @@ fun start() {
 
     DBProvider.session().use { session ->
         val result = session.run(GraphQLProvider.translate(query, params))
-        result.list().forEach{x -> println(x)}
+        result.list().forEach { x -> println(x) }
     }
 }
