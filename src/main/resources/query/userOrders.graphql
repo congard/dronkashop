@@ -1,17 +1,18 @@
-query userOrders($user: ID!){
-    user(login:$user){
+query userOrders($user: ID!) {
+    user(login:$user) {
         displayName
-        belongsTo{
+        belongsTo {
             name
         }
-        has{
+        has {
             date
-            includes{
-                name
-                price
+            items {
                 quantity
+                item {
+                    name
+                }
             }
-            payedWith{
+            payedWith {
                 type
             }
         }
