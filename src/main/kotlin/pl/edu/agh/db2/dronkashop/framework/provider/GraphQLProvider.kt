@@ -1,4 +1,4 @@
-package pl.edu.agh.db2.dronkashop.backend.provider
+package pl.edu.agh.db2.dronkashop.framework.provider
 
 import org.neo4j.graphql.Cypher
 import org.neo4j.graphql.QueryContext

@@ -2,14 +2,14 @@ package pl.edu.agh.db2.dronkashop.framework.entity
 
 import org.neo4j.driver.Value
 import pl.edu.agh.db2.dronkashop.framework.entity.annotations.Ignore
-import pl.edu.agh.db2.dronkashop.backend.ext.run
-import pl.edu.agh.db2.dronkashop.backend.ext.runGraphQL
+import pl.edu.agh.db2.dronkashop.framework.ext.run
+import pl.edu.agh.db2.dronkashop.framework.ext.runGraphQL
 import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
 import pl.edu.agh.db2.dronkashop.framework.core.ID
 import pl.edu.agh.db2.dronkashop.framework.core.Params
-import pl.edu.agh.db2.dronkashop.backend.provider.DBProvider
+import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityClass
-import pl.edu.agh.db2.dronkashop.backend.provider.GraphQLProvider
+import pl.edu.agh.db2.dronkashop.framework.provider.GraphQLProvider
 import java.time.LocalDateTime
 import java.util.LinkedList
 import kotlin.reflect.KClass

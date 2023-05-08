@@ -1,4 +1,4 @@
-package pl.edu.agh.db2.dronkashop.backend.provider
+package pl.edu.agh.db2.dronkashop.framework.provider
 
 import DBCredentials
 import org.neo4j.driver.AuthTokens
