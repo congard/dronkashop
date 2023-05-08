@@ -2,16 +2,12 @@
 
 ## Structure
 
-```
-pl.edu.agh.db2.dronkashop.backend
-    entity          classes like Category, User, Item, etc
-    ext             extension functions - w tym pakiecie są dodatkowe
-                    funkcje dla już istniejących klas
-    provider
+The project consists of:
 
-resources
-    query           tu umieszczamy GraphQL queries
-```
+1. Backend (DronkaShop)
+   1. [Kotlin code](src/main/kotlin/pl/edu/agh/db2/dronkashop/backend)
+   2. [GraphQL/Cypher code](src/main/resources) (schema, queries, mutations) 
+2. [Framework](src/main/kotlin/pl/edu/agh/db2/dronkashop/framework)
 
 ## Stack
 
@@ -72,4 +68,12 @@ Korzystamy z bibliotek napisanych w Kotlinie – a więc też używamy Kotlina.
 ### GraphQL
 
 1. [Biblioteka, z której korzystamy](https://github.com/neo4j-graphql/neo4j-graphql-java#how-does-it-work)
+   1. [Auto Generated Queries and Mutations](https://github.com/neo4j-graphql/neo4j-graphql-java#auto-generated-queries-and-mutations)
 2. **[Introduction to GraphQL](https://graphql.org/learn/)**
+
+### Cypher
+
+1. [Conditional Cypher Execution](https://neo4j.com/developer/kb/conditional-cypher-execution/)
+2. [Conditional Cypher Execution (docs)](https://neo4j.com/docs/apoc/current/cypher-execution/conditionals/)
+3. [CALL {} (subquery)](https://neo4j.com/docs/cypher-manual/current/clauses/call-subquery/)
+4. [Stackoverflow: Cypher query with chaining does not propagate](https://stackoverflow.com/questions/75604080/cypher-query-with-chaining-does-not-propagate)
