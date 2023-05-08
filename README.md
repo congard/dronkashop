@@ -30,9 +30,9 @@ Without this, compilation error will be thrown.
 
 ## Roadmap
 
-- [ ] Projektujemy bazę;
-- [ ] Tworzymy bazę korzystając z Cypher;
-- [ ] Tworzymy schemat (`schema`) dla GraphQL;
+- [x] Projektujemy bazę;
+- [x] Tworzymy bazę korzystając z Cypher;
+- [x] Tworzymy schemat (`schema`) dla GraphQL;
 - [ ] Piszemy backend w Kotlinie;
 - [ ] Jeżeli mamy czas, tworzymy jakiś tam frontend w JavaFx;
 - [ ] Sprawko (ofc lepiej go pisać równolegle);
