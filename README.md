@@ -41,6 +41,12 @@ Without this, compilation error will be thrown.
 - [ ] Jeżeli mamy czas, tworzymy jakiś tam frontend w JavaFx;
 - [ ] Sprawko (ofc lepiej go pisać równolegle);
 
+## IDE extensions
+
+1. IntelliJ: [Graph Database](https://plugins.jetbrains.com/plugin/20417-graph-database)
+2. VSCode: [Cypher Query Language](https://marketplace.visualstudio.com/items?itemName=jakeboone02.cypher-query-language)
+3. VSCode: [GraphQL](https://marketplace.visualstudio.com/items?itemName=mquandalle.graphql)
+
 ## Links
 
 ### Kotlin
