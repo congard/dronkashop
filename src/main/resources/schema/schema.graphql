@@ -1,55 +1,73 @@
 type OrderedItem @relation(name: "Includes", from: "order", to: "item") {
-   order: Order!
-   item: Item!
-   quantity: Int!
+    _id: ID!
+    order: Order!
+    item: Item!
+    quantity: Int!
 }
 
 type Item {
-    name: ID!
+    _id: ID!
+    name: String!
     description: String!
     quantity: Int!
     price: Float!
-    date: String!
+    date: DateTime!
     isDiscontinued: Boolean!
     belongsTo: [Category!]! @relation(name: "BelongsTo")
     publishedBy: User! @relation(name: "PublishedBy")
 }
 
 type Category {
-    name: ID!
+    _id: ID!
+    name: String!
     description: String!
     includes: [Item!]! @relation(name: "Includes")
 }
 
 type User {
+    _id: ID!
     displayName: String!
-    login: ID!
+    login: String!
     passwordHash: String!
     email: String!
-    registrationDate: String!
+    registrationDate: Date!
     belongsTo: Role! @relation(name: "BelongsTo")
     has: [Order!]! @relation(name: "Has")
     sells: [Item!]! @relation(name: "Sells")
 }
 
 type Role {
-    name: ID!
+    _id: ID!
+    name: String!
     description: String!
     includes: [User!]! @relation(name: "Includes")
 }
 
 type Order {
+    _id: ID!
     isPayed: Boolean!
     isCancelled: Boolean!
-    date: String!
+    date: DateTime!
     items: [OrderedItem!]
     by: User! @relation(name: "By")
     payedWith: Payment! @relation(name: "PayedWith")
 }
 
 type Payment {
-    date: String!
+    _id: ID!
+    date: DateTime!
     amount: Float!
     type: String!
     belongsTo: Order! @relation(name: "belongsTo")
+}
+
+# https://github.com/neo4j-graphql/neo4j-graphql-java/issues/292
+
+type Mutation {
+    mutateItemRelations(
+        _id: ID!,
+        belongsToAdded: [Int!],
+        belongsToDeleted: [Int!],
+        publishedBy: ID
+    ): Item @cypher(statement: """@embed('/schema/item/ItemMutateItemOneToManyRelations.cypher')""")
 }

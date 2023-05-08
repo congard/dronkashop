@@ -1,0 +1,17 @@
+query ItemGetByName($name: String!) {
+    item(name: $name) {
+        _id
+        name
+        description
+        quantity
+        price
+        date
+        isDiscontinued
+        belongsTo {
+            _id
+        }
+        publishedBy {
+            _id
+        }
+    }
+}

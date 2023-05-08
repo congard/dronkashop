@@ -1,0 +1,26 @@
+mutation ItemMutateProperties(
+    $id: ID!,
+    $name: String,
+    $description: String,
+    $quantity: Int,
+    $price: Float,
+    $date: DateTime,
+    $isDiscontinued: Boolean
+) {
+    mergeItem(
+        _id: $id,
+        name: $name,
+        description: $description,
+        quantity: $quantity,
+        price: $price,
+        date: $date,
+        isDiscontinued: $isDiscontinued
+    ) {
+        name
+        description
+        quantity
+        price
+        date
+        isDiscontinued
+    }
+}

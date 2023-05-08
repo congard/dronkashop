@@ -1,0 +1,16 @@
+query ItemProperties($id: ID!) {
+    item(_id: $id) {
+        name
+        description
+        quantity
+        price
+        date
+        isDiscontinued
+        belongsTo {
+            _id
+        }
+        publishedBy {
+            _id
+        }
+    }
+}

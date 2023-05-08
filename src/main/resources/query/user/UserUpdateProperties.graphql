@@ -1,0 +1,13 @@
+query UserProperties($id: ID!) {
+    user(_id: $id) {
+        displayName
+        login
+        email
+        registrationDate
+        # belongsTo
+        # has
+        sells {
+            _id
+        }
+    }
+}

@@ -1,0 +1,9 @@
+query CategoryProperties($id: ID!) {
+    category(_id: $id) {
+        name
+        description
+        includes {
+            _id
+        }
+    }
+}

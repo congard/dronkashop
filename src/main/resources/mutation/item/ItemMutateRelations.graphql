@@ -1,0 +1,20 @@
+mutation ItemMutateRelations(
+    $id: ID!,
+    $belongsToAdded: [Int!],
+    $belongsToDeleted: [Int!],
+    $publishedBy: ID
+) {
+    mutateItemRelations(
+        _id: $id,
+        belongsToAdded: $belongsToAdded,
+        belongsToDeleted: $belongsToDeleted,
+        publishedBy: $publishedBy
+    ) {
+        belongsTo {
+            _id
+        }
+        publishedBy {
+            _id
+        }
+    }
+}
