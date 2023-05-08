@@ -19,6 +19,19 @@ resources
 2. GraphQL
 3. Kotlin
 
+## Configuration
+
+Before building, project should be configured: `credentials.txt` should be created with
+the following content:
+
+```
+SERVER_URL
+USER_NAME
+PASSWORD
+```
+
+Without this, compilation error will be thrown.
+
 ## Roadmap
 
 - [ ] Projektujemy bazę;
