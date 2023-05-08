@@ -25,6 +25,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.neo4j/neo4j-graphql-java
     implementation("org.neo4j:neo4j-graphql-java:1.7.0")
+
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.21")
 }
 
 tasks.test {
