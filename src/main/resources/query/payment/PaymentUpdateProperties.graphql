@@ -1,0 +1,10 @@
+query PaymentProperties($id: ID!) {
+    payment(_id: $id) {
+        date
+        amount
+        type
+        belongsTo {
+            _id
+        }
+    }
+}

@@ -1,0 +1,16 @@
+query OrderProperties($id: ID!) {
+    order(_id: $id) {
+        isPayed
+        isCancelled
+        date
+        items {
+            _id
+        }
+        by {
+            _id
+        }
+        payedWith {
+            _id
+        }
+    }
+}

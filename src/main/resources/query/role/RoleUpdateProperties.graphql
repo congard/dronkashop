@@ -1,0 +1,9 @@
+query RoleProperties($id: ID!) {
+    role(_id: $id) {
+        name
+        description
+        includes {
+            _id
+        }
+    }
+}
