@@ -1,16 +1,42 @@
 package pl.edu.agh.db2.dronkashop.backend
 
-import pl.edu.agh.db2.dronkashop.backend.entity.Item
+import pl.edu.agh.db2.dronkashop.backend.entity.*
+import pl.edu.agh.db2.dronkashop.backend.provider.*
 import pl.edu.agh.db2.dronkashop.framework.entity.Relation
 import pl.edu.agh.db2.dronkashop.framework.core.ID
 import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
-import pl.edu.agh.db2.dronkashop.backend.provider.ItemProvider
 
 fun main() {
     DBProvider.use { start() }
 }
 
 fun start() {
+
+    // testing Order, Payment, Role, CategoryProvider, UserProvider
+    val order150: Order = OrderProvider.getById(ID(150)).also { println(it) }
+    println(order150.by.dst())
+
+    val payment92: Payment = PaymentProvider.getById(ID(92)).also { println(it) }
+    println(payment92.amount)
+
+    val role177: Role = RoleProvider.getById(ID(25)).also { println(it) }
+    role177.includes.forEach { userRelation -> println(userRelation.dst()) }
+    val roleListClient: List<Role> = RoleProvider.getByName("Client").also { println(it) }
+    println(roleListClient.first().description)
+
+    val category23: Category = CategoryProvider.getById(ID(23)).also { println(it) }
+    println(category23.name)
+    val categoryListNapoje: List<Category> = CategoryProvider.getByName("Napoje").also { println(it) }
+    println(categoryListNapoje.first().description)
+
+    val user176: User = UserProvider.getById(ID(176)).also { println(it) }
+    println(user176.displayName)
+    val userListBiedronka: List<User> = UserProvider.getByName("Biedronka").also { println(it) }
+    println(userListBiedronka.first().email)
+
+    println()
+    // end of testing
+
     val item22: Item = ItemProvider.getById(ID(22)).also { println(it) }
     item22.belongsTo.forEach { categoryRelation -> println(categoryRelation.dst()) }
 

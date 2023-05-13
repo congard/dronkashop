@@ -1,0 +1,10 @@
+query CategoryGetByName($name: String!) {
+    category(name: $name) {
+        _id
+        name
+        description
+        includes {
+            _id
+        }
+    }
+}
