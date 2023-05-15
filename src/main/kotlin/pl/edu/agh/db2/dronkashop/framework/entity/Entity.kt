@@ -82,7 +82,7 @@ abstract class Entity {
             val params = Params()
             params["id"] = id.value
 
-            val result = session.run(GraphQLProvider.translate(updatePropertiesQuery, params))
+            val result = session.runGraphQL(updatePropertiesQuery, params)
             val list = result.list()
 
             if (list.size != 1)
