@@ -16,6 +16,14 @@ fun start() {
     val order150: Order = OrderProvider.getById(ID(150)).also { println(it) }
     println(order150.by.dst())
 
+    order150.items.forEach { relation ->
+        relation.dst().let {
+            println(it)
+            println(it.order.dst())
+            println(it.item.dst())
+        }
+    }
+
     val payment92: Payment = PaymentProvider.getById(ID(92)).also { println(it) }
     println(payment92.amount)
 
