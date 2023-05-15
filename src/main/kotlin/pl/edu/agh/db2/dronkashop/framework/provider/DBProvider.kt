@@ -26,6 +26,7 @@ object DBProvider : AutoCloseable {
         session().use { session -> session.beginTransaction().use { block(it) } }
 
     override fun close() {
+        defaultQueryRunner.close()
         driver.close()
         println("DBProvider.close")
     }
