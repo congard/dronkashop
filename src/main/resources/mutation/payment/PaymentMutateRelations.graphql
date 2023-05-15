@@ -1,0 +1,13 @@
+mutation PaymentMutateRelations(
+    $id: ID!,
+    $belongsTo: ID
+) {
+    mutatePaymentRelations(
+        _id: $id,
+        belongsTo: $belongsTo
+    ) {
+        belongsTo {
+            _id
+        }
+    }
+}

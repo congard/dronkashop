@@ -1,0 +1,18 @@
+mutation OrderMutateRelations(
+    $id: ID!,
+    $by: ID,
+    $payedWith: ID
+) {
+    mutateOrderRelations(
+        _id: $id,
+        by: $by,
+        payedWith: $payedWith
+    ) {
+        by {
+            _id
+        }
+        payedWith {
+            _id
+        }
+    }
+}

@@ -1,0 +1,15 @@
+mutation RoleMutateRelations(
+    $id: ID!,
+    $includesAdded: [Int!],
+    $includesDeleted: [Int!]
+) {
+    mutateRoleRelations(
+        _id: $id,
+        includesAdded: $includesAdded,
+        includesDeleted: $includesDeleted
+    ) {
+        includes {
+            _id
+        }
+    }
+}

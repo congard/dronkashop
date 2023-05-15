@@ -1,0 +1,15 @@
+mutation UserMutateRelations(
+    $id: ID!,
+    $sellsAdded: [Int!],
+    $sellsDeleted: [Int!]
+) {
+    mutateUserRelations(
+        _id: $id,
+        sellsAdded: $sellsAdded,
+        sellsDeleted: $sellsDeleted
+    ) {
+        sells {
+            _id
+        }
+    }
+}

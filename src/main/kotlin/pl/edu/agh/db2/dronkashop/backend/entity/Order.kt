@@ -15,14 +15,17 @@ class Order : Entity()  {
     override val mutatePropertiesQuery: GraphQLQuery =
         Resource.gets("/mutation/order/OrderMutateProperties.graphql")
 
-    // TODO
-    override val mutateRelationsQuery: GraphQLQuery
-        get() = super.mutateRelationsQuery
+    override val mutateRelationsQuery: GraphQLQuery =
+        Resource.gets("/mutation/order/OrderMutateRelations.graphql")
 
     var isPayed: Boolean = false
     var isCancelled: Boolean = false
     var date: LocalDateTime = LocalDateTime.MIN
-    var items = ToManyRelation<OrderedItem>()
+    var items = ToManyRelation<OrderedItem>() // TODO: for this relations add extra function and, possible, override push
     var by = ToOneRelation.create<User>()
     var payedWith = ToOneRelation.create<Payment>()
+
+    fun addItems(items: List<Item>) {
+        TODO()
+    }
 }

@@ -75,6 +75,35 @@ type Mutation {
         belongsToDeleted: [Int!],
         publishedBy: ID
     ): Item @cypher(statement: """@embed('/schema/item/ItemMutateItemOneToManyRelations.cypher')""")
+
+    mutateCategoryRelations(
+        _id: ID!,
+        includesAdded: [Int!],
+        includesDeleted: [Int!]
+    ): Category @cypher(statement: """@embed('/schema/category/CategoryMutateRelations.cypher')""")
+
+    mutateOrderRelations(
+        _id: ID!,
+        by: ID,
+        payedWith: ID
+    ): Order @cypher(statement: """@embed('/schema/order/OrderMutateRelations.cypher')""")
+
+    mutatePaymentRelations(
+        _id: ID!,
+        belongsTo: ID
+    ): Order @cypher(statement: """@embed('/schema/payment/PaymentMutateRelations.cypher')""")
+
+    mutateRoleRelations(
+        _id: ID!,
+        includesAdded: [Int!],
+        includesDeleted: [Int!]
+    ): Role @cypher(statement: """@embed('/schema/role/RoleMutateRelations.cypher')""")
+
+    mutateUserRelations(
+        _id: ID!,
+        sellsAdded: [Int!],
+        sellsDeleted: [Int!]
+    ): User @cypher(statement: """@embed('/schema/user/UserMutateRelations.cypher')""")
 }
 
 type Query {

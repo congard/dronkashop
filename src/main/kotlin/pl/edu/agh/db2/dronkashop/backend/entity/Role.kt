@@ -15,9 +15,8 @@ class Role : Entity() {
     override val mutatePropertiesQuery: GraphQLQuery =
         Resource.gets("/mutation/role/RoleMutateProperties.graphql")
 
-    // TODO
-    override val mutateRelationsQuery: GraphQLQuery
-        get() = super.mutateRelationsQuery
+    override val mutateRelationsQuery: GraphQLQuery =
+        Resource.gets("/mutation/role/RoleMutateRelations.graphql")
 
     var name: String = ""
     var description: String = ""

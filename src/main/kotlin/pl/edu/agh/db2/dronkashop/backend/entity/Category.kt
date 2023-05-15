@@ -12,9 +12,8 @@ class Category : Entity() {
     override val mutatePropertiesQuery: GraphQLQuery =
         Resource.gets("/mutation/category/CategoryMutateProperties.graphql")
 
-    // TODO
-    override val mutateRelationsQuery: GraphQLQuery
-        get() = super.mutateRelationsQuery
+    override val mutateRelationsQuery: GraphQLQuery =
+        Resource.gets("/mutation/category/CategoryMutateRelations.graphql")
 
     var name: String = ""
     var description: String = ""

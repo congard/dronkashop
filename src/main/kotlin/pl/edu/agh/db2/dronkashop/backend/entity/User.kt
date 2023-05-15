@@ -13,9 +13,8 @@ class User : Entity() {
     override val mutatePropertiesQuery: GraphQLQuery =
         Resource.gets("/mutation/user/UserMutateProperties.graphql")
 
-    // TODO
-    override val mutateRelationsQuery: GraphQLQuery
-        get() = super.mutateRelationsQuery
+    override val mutateRelationsQuery: GraphQLQuery =
+        Resource.gets("/mutation/user/UserMutateRelations.graphql")
 
     // TODO: private setter for registrationDate
 

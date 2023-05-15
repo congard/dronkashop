@@ -1,0 +1,15 @@
+mutation CategoryMutateRelations(
+    $id: ID!,
+    $includesAdded: [Int!],
+    $includesDeleted: [Int!]
+) {
+    mutateCategoryRelations(
+        _id: $id,
+        includesAdded: $includesAdded,
+        includesDeleted: $includesDeleted
+    ) {
+        includes {
+            _id
+        }
+    }
+}
