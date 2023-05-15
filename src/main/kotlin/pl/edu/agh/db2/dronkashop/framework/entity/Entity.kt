@@ -56,7 +56,12 @@ abstract class Entity {
         val mutateRelParams = getRelMutationParams();
 
         DBProvider.session().use { session ->
-            fun runAndDeserialize(query: GraphQLQuery, params: Params) { // TODO: query emptiness check
+            fun runAndDeserialize(query: GraphQLQuery, params: Params) {
+                if (query.isEmpty()) {
+                    System.err.println("Warning: empty query")
+                    return
+                }
+
                 val result = session.runGraphQL(query, params)
                 val list = result.list()
 
