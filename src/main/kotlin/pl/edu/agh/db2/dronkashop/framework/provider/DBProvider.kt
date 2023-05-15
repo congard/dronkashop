@@ -1,10 +1,7 @@
 package pl.edu.agh.db2.dronkashop.framework.provider
 
 import DBCredentials
-import org.neo4j.driver.AuthTokens
-import org.neo4j.driver.Driver
-import org.neo4j.driver.GraphDatabase
-import org.neo4j.driver.Session
+import org.neo4j.driver.*
 
 /**
  * Opens a database connection
@@ -20,6 +17,9 @@ object DBProvider : AutoCloseable {
 
     fun session(): Session =
         driver.session()
+
+    fun transaction(block: Transaction.() -> Unit) =
+        session().use { session -> session.beginTransaction().use { block(it) } }
 
     override fun close() {
         driver.close()
