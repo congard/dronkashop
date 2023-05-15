@@ -1,0 +1,14 @@
+mutation CategoryMutateProperties(
+    $id: ID!,
+    $name: String,
+    $description: String
+) {
+    mergeCategory(
+        _id: $id,
+        name: $name,
+        description: $description
+    ) {
+        name
+        description
+    }
+}

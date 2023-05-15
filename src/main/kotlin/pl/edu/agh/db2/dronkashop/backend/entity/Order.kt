@@ -12,13 +12,17 @@ class Order : Entity()  {
     override val updatePropertiesQuery: GraphQLQuery =
         Resource.gets("/query/order/OrderUpdateProperties.graphql")
 
+    override val mutatePropertiesQuery: GraphQLQuery =
+        Resource.gets("/mutation/order/OrderMutateProperties.graphql")
+
     // TODO
-    override val mutatePropertiesQuery: GraphQLQuery = ""
+    override val mutateRelationsQuery: GraphQLQuery
+        get() = super.mutateRelationsQuery
 
     var isPayed: Boolean = false
     var isCancelled: Boolean = false
     var date: LocalDateTime = LocalDateTime.MIN
-    var items = ToManyRelation<Item>()
+    var items = ToManyRelation<OrderedItem>()
     var by = ToOneRelation.create<User>()
     var payedWith = ToOneRelation.create<Payment>()
 }

@@ -1,0 +1,18 @@
+mutation PaymentMutateProperties(
+    $id: ID!,
+    $date: DateTime,
+    $amount: Float,
+    $type: String
+) {
+    mergePayment(
+        _id: $id,
+        date: $date,
+        amount: $amount,
+        type: $type
+    ) {
+        isPayed
+        date
+        amount
+        type
+    }
+}

@@ -1,0 +1,17 @@
+mutation OrderMutateProperties(
+    $id: ID!,
+    $isPayed: Boolean,
+    $isCancelled: Boolean,
+    $date: DateTime
+) {
+    mergeOrder(
+        _id: $id,
+        isPayed: $isPayed,
+        isCancelled: $isCancelled,
+        date: $date
+    ) {
+        isPayed
+        isCancelled
+        date
+    }
+}

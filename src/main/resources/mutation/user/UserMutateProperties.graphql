@@ -1,0 +1,17 @@
+mutation UserMutateProperties(
+    $id: ID!,
+    $displayName: String,
+    $login: String,
+    $email: String
+) {
+    mergeUser(
+        _id: $id,
+        displayName: $name,
+        login: $login,
+        email: $email
+    ) {
+        displayName
+        login
+        email
+    }
+}

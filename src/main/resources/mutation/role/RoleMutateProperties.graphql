@@ -1,0 +1,14 @@
+mutation RoleMutateProperties(
+    $id: ID!,
+    $name: String,
+    $description: String
+) {
+    mergeRole(
+        _id: $id,
+        name: $name,
+        description: $description
+    ) {
+        name
+        description
+    }
+}
