@@ -5,10 +5,8 @@ import pl.edu.agh.db2.dronkashop.backend.entity.Role
 import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
 import pl.edu.agh.db2.dronkashop.framework.core.ID
 import pl.edu.agh.db2.dronkashop.framework.core.Params
-import pl.edu.agh.db2.dronkashop.framework.ext.run
 import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityProvider
-import pl.edu.agh.db2.dronkashop.framework.provider.GraphQLProvider
 import java.util.*
 
 object RoleProvider {
@@ -30,11 +28,11 @@ object RoleProvider {
     fun getByName(name: String): List<Role> {
         val resultRoles = LinkedList<Role>()
 
-        DBProvider.session().use { session ->
+        DBProvider.defaultQueryRunner.run {
             val params = Params()
             params["name"] = name
 
-            val result = session.run(GraphQLProvider.translate(RoleProvider.byNameQuery, params))
+            val result = runGraphQL(byNameQuery, params)
             val records = result.list()
 
             for (record in records) {

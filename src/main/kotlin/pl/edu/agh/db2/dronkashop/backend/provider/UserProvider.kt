@@ -5,10 +5,8 @@ import pl.edu.agh.db2.dronkashop.backend.entity.User
 import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
 import pl.edu.agh.db2.dronkashop.framework.core.ID
 import pl.edu.agh.db2.dronkashop.framework.core.Params
-import pl.edu.agh.db2.dronkashop.framework.ext.run
 import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityProvider
-import pl.edu.agh.db2.dronkashop.framework.provider.GraphQLProvider
 import java.util.*
 
 object UserProvider {
@@ -30,11 +28,11 @@ object UserProvider {
     fun getByName(name: String): List<User> {
         val resultUsers = LinkedList<User>()
 
-        DBProvider.session().use { session ->
+        DBProvider.defaultQueryRunner.run {
             val params = Params()
             params["displayName"] = name
 
-            val result = session.run(GraphQLProvider.translate(UserProvider.byNameQuery, params))
+            val result = runGraphQL(byNameQuery, params)
             val records = result.list()
 
             for (record in records) {

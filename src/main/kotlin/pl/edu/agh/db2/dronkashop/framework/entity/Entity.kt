@@ -2,14 +2,12 @@ package pl.edu.agh.db2.dronkashop.framework.entity
 
 import org.neo4j.driver.Value
 import pl.edu.agh.db2.dronkashop.framework.entity.annotations.Ignore
-import pl.edu.agh.db2.dronkashop.framework.ext.run
-import pl.edu.agh.db2.dronkashop.framework.ext.runGraphQL
 import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
 import pl.edu.agh.db2.dronkashop.framework.core.ID
 import pl.edu.agh.db2.dronkashop.framework.core.Params
 import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityClass
-import pl.edu.agh.db2.dronkashop.framework.provider.GraphQLProvider
+import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
 import java.time.LocalDateTime
 import java.util.LinkedList
 import kotlin.reflect.KClass
@@ -50,19 +48,20 @@ abstract class Entity {
 
     /**
      * Saves changes to the database
+     * Note: do not forget to call commit() if you are using TransactionQueryRunner
      */
-    fun push() {
+    fun push(queryRunner: QueryRunner = DBProvider.defaultQueryRunner) {
         val mutatePropParams = getPropMutationParams()
         val mutateRelParams = getRelMutationParams()
 
-        DBProvider.session().use { session ->
+        queryRunner.run {
             fun runAndDeserialize(query: GraphQLQuery, params: Params) {
                 if (query.isEmpty()) {
                     System.err.println("Warning: empty query")
                     return
                 }
 
-                val result = session.runGraphQL(query, params)
+                val result = runGraphQL(query, params)
                 val list = result.list()
 
                 if (list.size != 1)
@@ -83,11 +82,11 @@ abstract class Entity {
      * Fetches data from the database
      */
     fun pull() {
-        DBProvider.session().use { session ->
+        DBProvider.defaultQueryRunner.run {
             val params = Params()
             params["id"] = id.value
 
-            val result = session.runGraphQL(updatePropertiesQuery, params)
+            val result = runGraphQL(updatePropertiesQuery, params)
             val list = result.list()
 
             if (list.size != 1)

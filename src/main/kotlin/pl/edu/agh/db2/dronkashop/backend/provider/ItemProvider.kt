@@ -2,14 +2,12 @@ package pl.edu.agh.db2.dronkashop.backend.provider
 
 import pl.edu.agh.db2.dronkashop.backend.Resource
 import pl.edu.agh.db2.dronkashop.backend.entity.Item
-import pl.edu.agh.db2.dronkashop.framework.ext.run
 import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
 import pl.edu.agh.db2.dronkashop.framework.core.ID
 import pl.edu.agh.db2.dronkashop.framework.core.Params
 import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityProvider.entityById
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityProvider.merge
-import pl.edu.agh.db2.dronkashop.framework.provider.GraphQLProvider
 import java.util.LinkedList
 
 object ItemProvider {
@@ -30,11 +28,11 @@ object ItemProvider {
     fun getByName(name: String): List<Item> {
         val resultItems = LinkedList<Item>()
 
-        DBProvider.session().use { session ->
+        DBProvider.defaultQueryRunner.run {
             val params = Params()
             params["name"] = name
 
-            val result = session.run(GraphQLProvider.translate(byNameQuery, params))
+            val result = runGraphQL(byNameQuery, params)
             val records = result.list()
 
             for (record in records) {
