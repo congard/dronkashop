@@ -53,7 +53,7 @@ abstract class Entity {
      */
     fun push() {
         val mutatePropParams = getPropMutationParams()
-        val mutateRelParams = getRelMutationParams();
+        val mutateRelParams = getRelMutationParams()
 
         DBProvider.session().use { session ->
             fun runAndDeserialize(query: GraphQLQuery, params: Params) {
@@ -74,7 +74,7 @@ abstract class Entity {
             if (mutatePropParams.size > 1) // if there are more params than just id
                 runAndDeserialize(mutatePropertiesQuery, mutatePropParams)
 
-            if (mutateRelParams.size > 1)
+            if (mutateRelParams.filter { it.value != null }.size > 1)
                 runAndDeserialize(mutateRelationsQuery, mutateRelParams)
         }
     }
