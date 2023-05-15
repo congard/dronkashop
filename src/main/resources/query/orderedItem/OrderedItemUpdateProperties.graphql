@@ -1,0 +1,11 @@
+query OrderedItemProperties($id: ID!) {
+    queryOrderedItem(_id: $id) {
+        order {
+            _id
+        }
+        item {
+            _id
+        }
+        quantity
+    }
+}

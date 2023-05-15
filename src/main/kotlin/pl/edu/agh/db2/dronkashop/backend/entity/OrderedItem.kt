@@ -3,16 +3,16 @@ package pl.edu.agh.db2.dronkashop.backend.entity
 import pl.edu.agh.db2.dronkashop.backend.Resource
 import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
 import pl.edu.agh.db2.dronkashop.framework.entity.Entity
+import pl.edu.agh.db2.dronkashop.framework.entity.ToOneRelation
 
 class OrderedItem : Entity() {
-
-    // TODO
-    override val updatePropertiesQuery: GraphQLQuery = ""
+    override val updatePropertiesQuery: GraphQLQuery =
+        Resource.gets("/query/orderedItem/OrderedItemUpdateProperties.graphql")
 
     // TODO
     override val mutatePropertiesQuery: GraphQLQuery = ""
 
-    var order: Order = Order();
-    var item: Item = Item();
-    var quantity: Int = -1;
+    var order = ToOneRelation.create<Order>()
+    var item = ToOneRelation.create<Item>()
+    var quantity: Int = -1
 }

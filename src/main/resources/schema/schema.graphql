@@ -71,3 +71,7 @@ type Mutation {
         publishedBy: ID
     ): Item @cypher(statement: """@embed('/schema/item/ItemMutateItemOneToManyRelations.cypher')""")
 }
+
+type Query {
+    queryOrderedItem(_id: ID!): OrderedItem @cypher(passThrough: true, statement: """@embed('/schema/orderedItem/OrderedItemQuery.cypher')""")
+}
