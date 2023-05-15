@@ -64,6 +64,11 @@ type Payment {
 # https://github.com/neo4j-graphql/neo4j-graphql-java/issues/292
 
 type Mutation {
+    mutateOrderedItemProperties(
+        _id: ID!,
+        quantity: Int
+    ): OrderedItem @cypher(statement: """@embed('/schema/orderedItem/OrderedItemMutateProperties.cypher')""")
+
     mutateItemRelations(
         _id: ID!,
         belongsToAdded: [Int!],

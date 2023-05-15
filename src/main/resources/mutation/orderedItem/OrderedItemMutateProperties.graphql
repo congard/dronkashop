@@ -1,0 +1,11 @@
+mutation OrderedItemMutateProperties(
+    $id: ID!,
+    $quantity: Int
+) {
+    mutateOrderedItemProperties(
+        _id: $id,
+        quantity: $quantity
+    ) {
+        quantity
+    }
+}

@@ -9,10 +9,10 @@ class OrderedItem : Entity() {
     override val updatePropertiesQuery: GraphQLQuery =
         Resource.gets("/query/orderedItem/OrderedItemUpdateProperties.graphql")
 
-    // TODO
-    override val mutatePropertiesQuery: GraphQLQuery = ""
+    override val mutatePropertiesQuery: GraphQLQuery =
+        Resource.gets("/mutation/orderedItem/OrderedItemMutateProperties.graphql")
 
-    var order = ToOneRelation.create<Order>()
-    var item = ToOneRelation.create<Item>()
+    var order = ToOneRelation.create<Order>() // TODO: mark setter as private
+    var item = ToOneRelation.create<Item>() // TODO: same as above
     var quantity: Int = -1
 }
