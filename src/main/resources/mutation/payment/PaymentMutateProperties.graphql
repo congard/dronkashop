@@ -10,7 +10,6 @@ mutation PaymentMutateProperties(
         amount: $amount,
         type: $type
     ) {
-        isPayed
         date
         amount
         type
