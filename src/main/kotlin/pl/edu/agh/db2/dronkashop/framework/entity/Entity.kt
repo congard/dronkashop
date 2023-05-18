@@ -5,6 +5,9 @@ import pl.edu.agh.db2.dronkashop.framework.entity.annotations.Ignore
 import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
 import pl.edu.agh.db2.dronkashop.framework.core.ID
 import pl.edu.agh.db2.dronkashop.framework.core.Params
+import pl.edu.agh.db2.dronkashop.framework.entity.exception.EmptyQueryException
+import pl.edu.agh.db2.dronkashop.framework.entity.exception.EntityAlreadyExistsException
+import pl.edu.agh.db2.dronkashop.framework.entity.exception.EntityException
 import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityClass
 import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
@@ -37,6 +40,8 @@ abstract class Entity {
 
     protected open val mutateRelationsQuery: GraphQLQuery = ""
 
+    protected open val createNodeQuery: GraphQLQuery = ""
+
     var id = ID()
         set(value) {
             if (field.isValid() && field != value) {
@@ -47,10 +52,38 @@ abstract class Entity {
         }
 
     /**
-     * Saves changes to the database
+     * Creates new Entity in the database
+     * Note: do not forget to call commit() if you are using TransactionQueryRunner
+     * @throws EntityAlreadyExistsException if id is valid
+     * @throws EmptyQueryException if `createNodeQuery` is empty
+     * @throws EntityException if `Entity#persist` failed
+     */
+    fun persist(queryRunner: QueryRunner = DBProvider.defaultQueryRunner) {
+        if (id.isValid())
+            throw EntityAlreadyExistsException("Id is valid: $id")
+
+        if (createNodeQuery.isEmpty())
+            throw EmptyQueryException("Entity cannot be persisted: ${::createNodeQuery.name} is empty")
+
+        val params = Params().also {
+            forEachNodeProperty { property ->
+                it[property.name] = property.getter.call(this)
+            }
+        }
+
+        runAndDeserialize(createNodeQuery, params, queryRunner).ifPresentOrElse({
+            // call merge to create relations if needed
+            merge(queryRunner)
+        }, {
+            throw EntityException("Entity#persist failed: empty result")
+        })
+    }
+
+    /**
+     * Merges changes to the database
      * Note: do not forget to call commit() if you are using TransactionQueryRunner
      */
-    fun push(queryRunner: QueryRunner = DBProvider.defaultQueryRunner) {
+    fun merge(queryRunner: QueryRunner = DBProvider.defaultQueryRunner) {
         val mutatePropParams = getPropMutationParams()
         val mutateRelParams = getRelMutationParams()
 
@@ -61,13 +94,9 @@ abstract class Entity {
                     return
                 }
 
-                val result = runGraphQL(query, params)
-                val list = result.list()
-
-                if (list.size != 1)
-                    throw RuntimeException("Unexpected response size: expected 1 record, got ${list.size}")
-
-                deserialize(list[0][0])
+                runAndDeserialize(query, params, this).orElseThrow {
+                    EntityException("Entity#merge failed: empty result")
+                }
             }
 
             if (mutatePropParams.size > 1) // if there are more params than just id
@@ -79,20 +108,27 @@ abstract class Entity {
     }
 
     /**
+     * Saves changes to the database: if `id` is invalid, calls `Entity#persist`,
+     * otherwise `Entity#merge` will be called.
+     * Note: do not forget to call commit() if you are using TransactionQueryRunner
+     */
+    fun push(queryRunner: QueryRunner = DBProvider.defaultQueryRunner) {
+        if (id.isValid()) {
+            merge(queryRunner)
+        } else {
+            persist(queryRunner)
+        }
+    }
+
+    /**
      * Fetches data from the database
      */
     fun pull() {
-        DBProvider.defaultQueryRunner.run {
-            val params = Params()
-            params["id"] = id.value
+        val params = Params()
+        params["id"] = id.value
 
-            val result = runGraphQL(updatePropertiesQuery, params)
-            val list = result.list()
-
-            if (list.size != 1)
-                throw RuntimeException("Unexpected response size: expected 1 record, got ${list.size}")
-
-            deserialize(list[0][0])
+        runAndDeserialize(updatePropertiesQuery, params, DBProvider.defaultQueryRunner).orElseThrow {
+            EntityException("Entity#pull failed")
         }
     }
 
@@ -178,6 +214,16 @@ abstract class Entity {
         val (oneToManyAdded, oneToManyRemoved) = getChangedToManyRelations()
         return oneToManyAdded.any { entry -> entry.value.isNotEmpty() } ||
                 oneToManyRemoved.any { entry -> entry.value.isNotEmpty() }
+    }
+
+    private fun runAndDeserialize(query: GraphQLQuery, params: Params, runner: QueryRunner) = runner.run {
+        val result = runGraphQL(query, params)
+        val list = result.list()
+
+        if (list.size != 1)
+            throw EntityException("Unexpected response size: expected 1 record, got ${list.size}")
+
+        deserialize(list[0][0])
     }
 
     /**
@@ -278,7 +324,7 @@ abstract class Entity {
         val added = current.toMutableMap()
 
         for (entry in added) {
-            added[entry.key] = entry.value - toManyRelations[entry.key]!!.toSet()
+            added[entry.key] = entry.value - (toManyRelations[entry.key] ?: emptyList()).toSet()
         }
 
         val removed = toManyRelations.toMutableMap()
@@ -330,7 +376,8 @@ abstract class Entity {
             when (property.name) {
                 ::updatePropertiesQuery.name,
                 ::mutatePropertiesQuery.name,
-                ::mutateRelationsQuery.name ->
+                ::mutateRelationsQuery.name,
+                ::createNodeQuery.name ->
                     return@forEach
             }
 
