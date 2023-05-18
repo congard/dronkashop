@@ -5,9 +5,10 @@ import org.neo4j.graphql.Cypher
 import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
 import pl.edu.agh.db2.dronkashop.framework.core.Params
 import pl.edu.agh.db2.dronkashop.framework.provider.GraphQLProvider
+import java.util.Optional
 
 abstract class QueryRunner : AutoCloseable {
-    abstract fun run(block: QueryRunner.() -> Unit)
+    abstract fun <R : Any> run(block: QueryRunner.() -> R): Optional<R>
 
     abstract fun run(query: String, params: Map<String, Any?>): Result
 
