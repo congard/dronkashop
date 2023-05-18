@@ -1,0 +1,16 @@
+mutation PaymentCreate(
+    $date: DateTime!,
+    $amount: Float!,
+    $type: String!
+) {
+    createPayment(
+        date: $date,
+        amount: $amount,
+        type: $type
+    ) {
+        _id
+        date
+        amount
+        type
+    }
+}

@@ -1,0 +1,25 @@
+mutation ItemCreate(
+    $name: String!,
+    $description: String!,
+    $quantity: Int!,
+    $price: Float!,
+    $date: DateTime!,
+    $isDiscontinued: Boolean!
+) {
+    createItem(
+        name: $name,
+        description: $description,
+        quantity: $quantity,
+        price: $price,
+        date: $date,
+        isDiscontinued: $isDiscontinued
+    ) {
+        _id
+        name
+        description
+        quantity
+        price
+        date
+        isDiscontinued
+    }
+}

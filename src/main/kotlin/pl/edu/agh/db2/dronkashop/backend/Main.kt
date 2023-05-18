@@ -53,6 +53,16 @@ fun start() {
     println(userListBiedronka.first().email)
 
     println()
+
+    // test persist
+//    Category().run {
+//        name = "Test Category"
+//        description = "Test Description"
+//        println(id)
+//        persist()
+//        println(id)
+//    }
+
     // end of testing
 
     val item22: Item = ItemProvider.getById(ID(22)).also { println(it) }

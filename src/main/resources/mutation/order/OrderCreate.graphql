@@ -1,0 +1,16 @@
+mutation OrderCreate(
+    $isPayed: Boolean!,
+    $isCancelled: Boolean!,
+    $date: DateTime!
+) {
+    createOrder(
+        isPayed: $isPayed,
+        isCancelled: $isCancelled,
+        date: $date
+    ) {
+        _id
+        isPayed
+        isCancelled
+        date
+    }
+}

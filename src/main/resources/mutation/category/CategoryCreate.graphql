@@ -1,0 +1,13 @@
+mutation CategoryCreate(
+    $name: String!,
+    $description: String!
+) {
+    createCategory(
+        name: $name,
+        description: $description
+    ) {
+        _id
+        name
+        description
+    }
+}

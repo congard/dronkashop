@@ -15,6 +15,9 @@ class Category : Entity() {
     override val mutateRelationsQuery: GraphQLQuery =
         Resource.gets("/mutation/category/CategoryMutateRelations.graphql")
 
+    override val createNodeQuery: GraphQLQuery =
+        Resource.gets("/mutation/category/CategoryCreate.graphql")
+
     var name: String = ""
     var description: String = ""
     var includes = ToManyRelation<Item>()

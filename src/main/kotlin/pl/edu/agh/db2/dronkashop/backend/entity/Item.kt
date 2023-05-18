@@ -17,6 +17,9 @@ class Item : Entity() {
     override val mutateRelationsQuery: GraphQLQuery =
         Resource.gets("/mutation/item/ItemMutateRelations.graphql")
 
+    override val createNodeQuery: GraphQLQuery =
+        Resource.gets("/mutation/item/ItemCreate.graphql")
+
     var name: String = ""
     var description: String = ""
     var quantity: Int = -1

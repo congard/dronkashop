@@ -17,6 +17,9 @@ class Payment : Entity() {
     override val mutateRelationsQuery: GraphQLQuery =
         Resource.gets("/mutation/payment/PaymentMutateRelations.graphql")
 
+    override val createNodeQuery: GraphQLQuery =
+        Resource.gets("/mutation/payment/PaymentCreate.graphql")
+
     var date: LocalDateTime = LocalDateTime.MIN
     var amount: Float = -1.0f
     var type: String = ""

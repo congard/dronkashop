@@ -1,0 +1,19 @@
+mutation UserCreate(
+    $displayName: String!,
+    $login: String!,
+    $email: String!,
+    $registrationDate: DateTime!
+) {
+    createUser(
+        displayName: $name,
+        login: $login,
+        email: $email,
+        registrationDate: $registrationDate
+    ) {
+        _id
+        displayName
+        login
+        email
+        registrationDate
+    }
+}

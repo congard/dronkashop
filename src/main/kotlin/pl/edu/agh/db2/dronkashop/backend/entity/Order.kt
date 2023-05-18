@@ -18,6 +18,9 @@ class Order : Entity()  {
     override val mutateRelationsQuery: GraphQLQuery =
         Resource.gets("/mutation/order/OrderMutateRelations.graphql")
 
+    override val createNodeQuery: GraphQLQuery =
+        Resource.gets("/mutation/order/OrderCreate.graphql")
+
     var isPayed: Boolean = false
     var isCancelled: Boolean = false
     var date: LocalDateTime = LocalDateTime.MIN

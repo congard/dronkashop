@@ -18,6 +18,9 @@ class Role : Entity() {
     override val mutateRelationsQuery: GraphQLQuery =
         Resource.gets("/mutation/role/RoleMutateRelations.graphql")
 
+    override val createNodeQuery: GraphQLQuery =
+        Resource.gets("/mutation/role/RoleCreate.graphql")
+
     var name: String = ""
     var description: String = ""
     var includes = ToManyRelation<User>()
