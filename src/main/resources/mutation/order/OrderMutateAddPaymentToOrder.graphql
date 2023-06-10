@@ -1,0 +1,13 @@
+mutation OrderMutateAddPaymentToOrder(
+    $paymentId: ID!,
+    $orderId: ID!
+) {
+    addPaymentToOrder(
+        paymentId: $paymentId,
+        orderId: $orderId
+    ) {
+        payedWith {
+            _id
+        }
+    }
+}

@@ -1,0 +1,13 @@
+mutation UserMutateAddItemToUser(
+    $itemId: ID!,
+    $userId: ID!
+) {
+    addItemToUser(
+        itemId: $itemId,
+        userId: $userId
+    ) {
+        sells {
+            _id
+        }
+    }
+}

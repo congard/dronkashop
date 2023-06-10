@@ -109,6 +109,26 @@ type Mutation {
         categoryId: ID!,
         itemId: ID!
     ): Category @cypher(statement: """@embed('/schema/category/CategoryMutateAddItemToCategory.cypher')""")
+
+    addRoleToUser(
+        roleId: ID!,
+        userId: ID!
+    ): User @cypher(statement: """@embed('/schema/user/UserMutateAddRoleToUser.cypher')""")
+
+    addOrderToUser(
+        orderId: ID!,
+        userId: ID!
+    ): User @cypher(statement: """@embed('/schema/user/UserMutateAddOrderToUser.cypher')""")
+
+    addItemToUser(
+        itemId: ID!,
+        userId: ID!
+    ): User @cypher(statement: """@embed('/schema/user/UserMutateAddItemToUser.cypher')""")
+
+    addPaymentToOrder(
+        paymentId: ID!,
+        orderId: ID!
+    ): Order @cypher(statement: """@embed('/schema/order/OrderMutateAddPaymentToOrder.cypher')""")
 }
 
 type Query {

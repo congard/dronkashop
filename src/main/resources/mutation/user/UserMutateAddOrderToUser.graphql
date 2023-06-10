@@ -1,0 +1,13 @@
+mutation UserMutateAddOrderToUser(
+    $orderId: ID!,
+    $userId: ID!
+) {
+    addOrderToUser(
+        orderId: $orderId,
+        userId: $userId
+    ) {
+        has {
+            _id
+        }
+    }
+}

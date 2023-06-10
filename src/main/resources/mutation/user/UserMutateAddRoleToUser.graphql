@@ -1,0 +1,13 @@
+mutation UserMutateAddRoleToUser(
+    $roleId: ID!,
+    $userId: ID!
+) {
+    addRoleToUser(
+        roleId: $roleId,
+        userId: $userId
+    ) {
+        belongsTo {
+            _id
+        }
+    }
+}
