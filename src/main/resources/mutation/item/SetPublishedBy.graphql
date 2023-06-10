@@ -1,0 +1,11 @@
+mutation setPublishedBy($itemId: ID!, $userId: ID!) {
+    setPublishedBy(itemId: $itemId, userId: $userId) {
+        _id
+        name
+        description
+        publishedBy {
+            _id
+            username
+        }
+    }
+}
