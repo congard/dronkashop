@@ -109,11 +109,6 @@ type Mutation {
         categoryId: ID!,
         itemId: ID!
     ): Category @cypher(statement: """@embed('/schema/category/CategoryMutateAddItemToCategory.cypher')""")
-
-    addCategoryToItem(
-        categoryId: ID!,
-        itemId: ID!
-    ): Item @cypher(statement: """@embed('/schema/item/ItemMutateAddCategoryToItem.cypher')""")
 }
 
 type Query {
