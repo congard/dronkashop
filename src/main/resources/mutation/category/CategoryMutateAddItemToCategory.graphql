@@ -1,0 +1,13 @@
+mutation CategoryMutateAddItemToCategory(
+    $categoryId: ID!,
+    $itemId: ID!
+) {
+    addItemToCategory(
+        categoryId: $categoryId,
+        itemId: $itemId
+    ) {
+        includes {
+            _id
+        }
+    }
+}
