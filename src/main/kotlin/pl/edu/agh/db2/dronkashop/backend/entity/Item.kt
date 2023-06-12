@@ -5,6 +5,8 @@ import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
 import pl.edu.agh.db2.dronkashop.framework.entity.Entity
 import pl.edu.agh.db2.dronkashop.framework.entity.ToManyRelation
 import pl.edu.agh.db2.dronkashop.framework.entity.ToOneRelation
+import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
+import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
 import java.time.LocalDateTime
 
 class Item : Entity() {
@@ -29,8 +31,8 @@ class Item : Entity() {
     var belongsTo = ToManyRelation<Category>()
     var publishedBy = ToOneRelation.create<User>()
 
-    fun addToCategory(category: Category) =
-        category.addItem(this)
+    fun addToCategory(category: Category, runner: QueryRunner = DBProvider.defaultQueryRunner) =
+        category.addItem(this, runner)
 
     fun removeFromCategory(category: Category) =
         category.removeItem(this)
@@ -38,6 +40,6 @@ class Item : Entity() {
     fun removeFromUser(user: User) =
         user.removeItem(this)
 
-    fun setSupplier(user: User) =
-        user.addItem(this)
+    fun setSupplier(user: User, runner: QueryRunner = DBProvider.defaultQueryRunner) =
+        user.addItem(this, runner)
 }

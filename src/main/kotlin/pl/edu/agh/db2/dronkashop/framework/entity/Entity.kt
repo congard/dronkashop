@@ -125,11 +125,11 @@ abstract class Entity {
     /**
      * Fetches data from the database
      */
-    fun pull() {
+    fun pull(runner: QueryRunner = DBProvider.defaultQueryRunner) {
         val params = Params()
         params["id"] = id.value
 
-        runAndDeserialize(updatePropertiesQuery, params, DBProvider.defaultQueryRunner).orElseThrow {
+        runAndDeserialize(updatePropertiesQuery, params, runner).orElseThrow {
             EntityException("Entity#pull failed")
         }
     }

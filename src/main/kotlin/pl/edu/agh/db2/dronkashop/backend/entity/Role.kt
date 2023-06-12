@@ -4,6 +4,8 @@ import pl.edu.agh.db2.dronkashop.backend.Resource
 import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
 import pl.edu.agh.db2.dronkashop.framework.entity.Entity
 import pl.edu.agh.db2.dronkashop.framework.entity.ToManyRelation
+import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
+import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
 
 // Can not make Role an enum:
 // "Enum class cannot inherit from classes"
@@ -25,9 +27,10 @@ class Role : Entity() {
     var description: String = ""
     var includes = ToManyRelation<User>()
 
-    fun addUser(user: User) =
-        user.setRole(this)
+    fun addUser(user: User, runner: QueryRunner = DBProvider.defaultQueryRunner) =
+        user.setRole(this, runner)
 
     fun removeUser(user: User) =
         user.removeRole(this)
+
 }

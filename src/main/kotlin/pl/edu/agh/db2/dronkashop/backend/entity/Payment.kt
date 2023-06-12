@@ -4,6 +4,8 @@ import pl.edu.agh.db2.dronkashop.backend.Resource
 import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
 import pl.edu.agh.db2.dronkashop.framework.entity.Entity
 import pl.edu.agh.db2.dronkashop.framework.entity.ToOneRelation
+import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
+import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
 import java.time.LocalDateTime
 
 class Payment : Entity() {
@@ -25,9 +27,10 @@ class Payment : Entity() {
     var type: String = ""
     var belongsTo = ToOneRelation.create<Order>()
 
-    fun setOrder(order: Order) =
-        order.setPayment(this)
+    fun setOrder(order: Order, runner: QueryRunner = DBProvider.defaultQueryRunner) =
+        order.setPayment(this, runner)
 
     fun removeFromOrder(order: Order) =
         order.removePayment(this)
+
 }

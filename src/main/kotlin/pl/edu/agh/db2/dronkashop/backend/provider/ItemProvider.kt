@@ -4,10 +4,11 @@ import pl.edu.agh.db2.dronkashop.backend.Resource
 import pl.edu.agh.db2.dronkashop.backend.entity.Item
 import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
 import pl.edu.agh.db2.dronkashop.framework.core.ID
-import pl.edu.agh.db2.dronkashop.framework.core.Params
+import pl.edu.agh.db2.dronkashop.framework.core.paramsOf
 import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityProvider.entityById
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityProvider.merge
+import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
 import java.util.LinkedList
 
 object ItemProvider {
@@ -18,29 +19,25 @@ object ItemProvider {
      * If Item with the specified id hasn't been loaded yet,
      * it will be loaded, otherwise cached object will be returned
      */
-    fun getById(id: ID): Item =
-        entityById(id)
+    fun getById(id: ID, runner: QueryRunner = DBProvider.defaultQueryRunner): Item =
+        entityById(id, runner = runner)
 
     /**
      * If Item with the specified name has been already loaded,
      * it will be updated
      */
-    fun getByName(name: String): List<Item> {
+    fun getByName(name: String, runner: QueryRunner = DBProvider.defaultQueryRunner): List<Item> = runner.run {
         val resultItems = LinkedList<Item>()
 
-        DBProvider.defaultQueryRunner.run {
-            val params = Params()
-            params["name"] = name
+        val params = paramsOf("name" to name)
+        val result = runGraphQL(byNameQuery, params)
+        val records = result.list()
 
-            val result = runGraphQL(byNameQuery, params)
-            val records = result.list()
-
-            for (record in records) {
-                val value = record[0]
-                merge<Item>(value).also { resultItems.add(it) }
-            }
+        for (record in records) {
+            val value = record[0]
+            merge<Item>(value).also { resultItems.add(it) }
         }
 
-        return resultItems
-    }
+        resultItems
+    }.orElseThrow()
 }
