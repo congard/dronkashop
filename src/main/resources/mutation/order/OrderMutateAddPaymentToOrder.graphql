@@ -1,11 +1,12 @@
 mutation OrderMutateAddPaymentToOrder(
     $paymentId: ID!,
-    $orderId: ID!
+    $id: ID!
 ) {
     addPaymentToOrder(
         paymentId: $paymentId,
-        orderId: $orderId
+        orderId: $id
     ) {
+        _id
         payedWith {
             _id
         }

@@ -1,11 +1,12 @@
 mutation UserMutateAddOrderToUser(
     $orderId: ID!,
-    $userId: ID!
+    $id: ID!
 ) {
     addOrderToUser(
         orderId: $orderId,
-        userId: $userId
+        userId: $id
     ) {
+        _id
         has {
             _id
         }

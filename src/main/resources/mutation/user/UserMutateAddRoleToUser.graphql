@@ -1,11 +1,12 @@
 mutation UserMutateAddRoleToUser(
     $roleId: ID!,
-    $userId: ID!
+    $id: ID!
 ) {
     addRoleToUser(
         roleId: $roleId,
-        userId: $userId
+        userId: $id
     ) {
+        _id
         belongsTo {
             _id
         }

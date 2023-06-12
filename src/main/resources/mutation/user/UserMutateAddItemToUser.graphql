@@ -1,11 +1,12 @@
 mutation UserMutateAddItemToUser(
     $itemId: ID!,
-    $userId: ID!
+    $id: ID!
 ) {
     addItemToUser(
         itemId: $itemId,
-        userId: $userId
+        userId: $id
     ) {
+        _id
         sells {
             _id
         }

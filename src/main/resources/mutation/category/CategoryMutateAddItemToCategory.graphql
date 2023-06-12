@@ -1,11 +1,12 @@
 mutation CategoryMutateAddItemToCategory(
-    $categoryId: ID!,
+    $id: ID!,
     $itemId: ID!
 ) {
     addItemToCategory(
-        categoryId: $categoryId,
+        categoryId: $id,
         itemId: $itemId
     ) {
+        _id
         includes {
             _id
         }
