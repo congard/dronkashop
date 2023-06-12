@@ -6,6 +6,7 @@ CALL {
   MATCH (payment:Payment)
     WHERE id(payment) = toInteger($paymentId)
   MATCH (payment)-[r:belongsTo]->(order) DELETE r
+  WITH order, payment
   MATCH (order)-[r:PayedWith]->(payment) DELETE r
 }
 

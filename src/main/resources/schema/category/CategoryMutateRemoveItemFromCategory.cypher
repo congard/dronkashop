@@ -6,6 +6,7 @@ CALL {
   MATCH (item:Item)
     WHERE id(item) = toInteger($itemId)
   MATCH (category)-[r:Includes]->(item) DELETE r
+  WITH category, item
   MATCH (item)-[r:BelongsTo]->(category) DELETE r
 }
 

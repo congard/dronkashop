@@ -27,4 +27,7 @@ class Payment : Entity() {
 
     fun setOrder(order: Order) =
         order.setPayment(this)
+
+    fun removeFromOrder(order: Order) =
+        order.removePayment(this)
 }

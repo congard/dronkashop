@@ -24,12 +24,21 @@ class Category : Entity() {
     private val mutateAddItem: GraphQLQuery =
         Resource.gets("/mutation/category/CategoryMutateAddItemToCategory.graphql")
 
+    @Ignore
+    private val mutateRemoveItem: GraphQLQuery =
+        Resource.gets("/mutation/category/CategoryMutateRemoveItemFromCategory.graphql")
+
     var name: String = ""
     var description: String = ""
     var includes = ToManyRelation<Item>()
 
     fun addItem(item: Item) {
         runCustomMutation(mutateAddItem, paramsOf("itemId" to item.id.value))
+        item.pull()
+    }
+
+    fun removeItem(item: Item) {
+        runCustomMutation(mutateRemoveItem, paramsOf("itemId" to item.id.value))
         item.pull()
     }
 }

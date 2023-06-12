@@ -6,6 +6,7 @@ CALL {
   MATCH (order:Order)
     WHERE id(order) = toInteger($orderId)
   MATCH (order)-[r:By]->(user) DELETE r
+  WITH user, order
   MATCH (user)-[r:Has]->(order) DELETE r
 }
 

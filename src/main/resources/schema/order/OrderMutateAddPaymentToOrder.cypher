@@ -8,6 +8,7 @@ WHERE id(payment) = toInteger($paymentId)
 // so delete previous relations if exist
 
 OPTIONAL MATCH (order)-[p:PayedWith]->() DELETE p
+WITH payment
 OPTIONAL MATCH (payment)-[b:belongsTo]->() DELETE b
 
 MERGE (order)-[:PayedWith]->(payment)

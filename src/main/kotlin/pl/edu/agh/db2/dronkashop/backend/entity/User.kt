@@ -34,6 +34,18 @@ class User : Entity() {
     private val mutateAddRole: GraphQLQuery =
         Resource.gets("/mutation/user/UserMutateAddRoleToUser.graphql")
 
+    @Ignore
+    private val mutateRemoveItem: GraphQLQuery =
+        Resource.gets("/mutation/user/UserMutateRemoveItemFromUser.graphql")
+
+    @Ignore
+    private val mutateRemoveOrder: GraphQLQuery =
+        Resource.gets("/mutation/user/UserMutateRemoveOrderFromUser.graphql")
+
+    @Ignore
+    private val mutateRemoveRole: GraphQLQuery =
+        Resource.gets("/mutation/user/UserMutateRemoveRoleFromUser.graphql")
+
     // TODO: private setter for registrationDate
 
     var displayName: String = ""
@@ -49,13 +61,28 @@ class User : Entity() {
         item.pull()
     }
 
+    fun removeItem(item: Item) {
+        runCustomMutation(mutateRemoveItem, paramsOf("itemId" to item.id.value))
+        item.pull()
+    }
+
     fun addOrder(order: Order) {
         runCustomMutation(mutateAddOrder, paramsOf("orderId" to order.id.value))
         order.pull()
     }
 
+    fun removeOrder(order: Order) {
+        runCustomMutation(mutateRemoveOrder, paramsOf("orderId" to order.id.value))
+        order.pull()
+    }
+
     fun setRole(role: Role) {
         runCustomMutation(mutateAddRole, paramsOf("roleId" to role.id.value))
+        role.pull()
+    }
+
+    fun removeRole(role: Role) {
+        runCustomMutation(mutateRemoveRole, paramsOf("roleId" to role.id.value))
         role.pull()
     }
 }

@@ -32,6 +32,12 @@ class Item : Entity() {
     fun addToCategory(category: Category) =
         category.addItem(this)
 
+    fun removeFromCategory(category: Category) =
+        category.removeItem(this)
+
+    fun removeFromUser(user: User) =
+        user.removeItem(this)
+
     fun setSupplier(user: User) =
         user.addItem(this)
 }

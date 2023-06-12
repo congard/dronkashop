@@ -5,6 +5,7 @@ import pl.edu.agh.db2.dronkashop.backend.provider.*
 import pl.edu.agh.db2.dronkashop.framework.entity.Relation
 import pl.edu.agh.db2.dronkashop.framework.core.ID
 import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
+import java.time.LocalDateTime
 
 fun main() {
     DBProvider.use { start() }
@@ -12,7 +13,29 @@ fun main() {
 
 fun start() {
 
-    // testing Order, Payment, Role, CategoryProvider, UserProvider
+    // testing relation removal mutations
+
+    // val item: Item = ItemProvider.getById(ID(22)).also { println(it) }
+    // item.belongsTo.forEach { categoryRelation -> println(categoryRelation.dst()) }
+    // item.removeFromCategory(CategoryProvider.getById(ID(175)))
+    // item.belongsTo.forEach { categoryRelation -> println(categoryRelation.dst()) }
+
+    // val user: User = UserProvider.getById(ID(24)).also { println(it) }
+    // user.removeItem(ItemProvider.getById(ID(21)))
+
+    // val user: User = UserProvider.getById(ID(176)).also { println(it) }
+    // user.removeOrder(OrderProvider.getById(ID(150)))
+
+    // val user: User = UserProvider.getById(ID(176)).also { println(it) }
+    // user.removeRole(RoleProvider.getById(ID(177)))
+
+    //val order: Order = OrderProvider.getById(ID(58)).also { println(it) }
+    //order.removePayment(PaymentProvider.getById(ID(61)))
+
+    // end of testing relation removal mutations
+
+
+    /*// testing Order, Payment, Role, CategoryProvider, UserProvider
     val order150: Order = OrderProvider.getById(ID(150)).also { println(it) }
     println(order150.by.dst())
 
@@ -89,5 +112,5 @@ fun start() {
         printModified()
 
         println(bread)
-    }
+    }*/
 }

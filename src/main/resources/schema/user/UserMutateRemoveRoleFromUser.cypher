@@ -6,6 +6,7 @@ CALL {
   MATCH (role:Role)
     WHERE id(role) = toInteger($roleId)
   MATCH (role)-[r:Includes]->(user) DELETE r
+  WITH user, role
   MATCH (user)-[r:BelongsTo]->(role) DELETE r
 }
 

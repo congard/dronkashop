@@ -27,4 +27,7 @@ class Role : Entity() {
 
     fun addUser(user: User) =
         user.setRole(this)
+
+    fun removeUser(user: User) =
+        user.removeRole(this)
 }

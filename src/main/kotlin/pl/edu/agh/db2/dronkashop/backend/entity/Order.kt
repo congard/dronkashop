@@ -26,6 +26,10 @@ class Order : Entity()  {
     private val mutateAddPayment: GraphQLQuery =
         Resource.gets("/mutation/order/OrderMutateAddPaymentToOrder.graphql")
 
+    @Ignore
+    private val mutateRemovePayment: GraphQLQuery =
+        Resource.gets("/mutation/order/OrderMutateRemovePaymentFromOrder.graphql")
+
     var isPayed: Boolean = false
     var isCancelled: Boolean = false
     var date: LocalDateTime = LocalDateTime.MIN
@@ -41,7 +45,14 @@ class Order : Entity()  {
         runCustomMutation(mutateAddPayment, paramsOf("paymentId" to payment.id.value))
         payment.pull()
     }
+    fun removePayment(payment: Payment) {
+        runCustomMutation(mutateRemovePayment, paramsOf("paymentId" to payment.id.value))
+        payment.pull()
+    }
 
     fun setCustomer(user: User) =
         user.addOrder(this)
+
+    fun removeFromCustomer(user: User) =
+        user.removeOrder(this)
 }
