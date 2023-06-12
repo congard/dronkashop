@@ -7,6 +7,8 @@ import pl.edu.agh.db2.dronkashop.framework.entity.Entity
 import pl.edu.agh.db2.dronkashop.framework.entity.ToManyRelation
 import pl.edu.agh.db2.dronkashop.framework.entity.ToOneRelation
 import pl.edu.agh.db2.dronkashop.framework.entity.annotations.Ignore
+import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
+import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
 import java.time.LocalDateTime
 
 class Order : Entity()  {
@@ -37,11 +39,11 @@ class Order : Entity()  {
         TODO()
     }
 
-    fun setPayment(payment: Payment) {
-        runCustomMutation(mutateAddPayment, paramsOf("paymentId" to payment.id.value))
+    fun setPayment(payment: Payment, runner: QueryRunner = DBProvider.defaultQueryRunner) {
+        runCustomMutation(mutateAddPayment, paramsOf("paymentId" to payment.id.value), runner)
         payment.pull()
     }
 
-    fun setCustomer(user: User) =
-        user.addOrder(this)
+    fun setCustomer(user: User, runner: QueryRunner = DBProvider.defaultQueryRunner) =
+        user.addOrder(this, runner)
 }

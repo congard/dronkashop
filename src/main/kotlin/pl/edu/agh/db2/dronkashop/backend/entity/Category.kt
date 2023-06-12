@@ -6,6 +6,8 @@ import pl.edu.agh.db2.dronkashop.framework.core.paramsOf
 import pl.edu.agh.db2.dronkashop.framework.entity.Entity
 import pl.edu.agh.db2.dronkashop.framework.entity.ToManyRelation
 import pl.edu.agh.db2.dronkashop.framework.entity.annotations.Ignore
+import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
+import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
 
 class Category : Entity() {
     override val updatePropertiesQuery: GraphQLQuery =
@@ -28,8 +30,8 @@ class Category : Entity() {
     var description: String = ""
     var includes = ToManyRelation<Item>()
 
-    fun addItem(item: Item) {
-        runCustomMutation(mutateAddItem, paramsOf("itemId" to item.id.value))
+    fun addItem(item: Item, runner: QueryRunner = DBProvider.defaultQueryRunner) {
+        runCustomMutation(mutateAddItem, paramsOf("itemId" to item.id.value), runner)
         item.pull()
     }
 }

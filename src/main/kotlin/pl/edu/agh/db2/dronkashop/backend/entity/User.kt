@@ -7,6 +7,8 @@ import pl.edu.agh.db2.dronkashop.framework.entity.Entity
 import pl.edu.agh.db2.dronkashop.framework.entity.ToManyRelation
 import pl.edu.agh.db2.dronkashop.framework.entity.ToOneRelation
 import pl.edu.agh.db2.dronkashop.framework.entity.annotations.Ignore
+import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
+import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
 import java.time.LocalDateTime
 
 class User : Entity() {
@@ -44,18 +46,18 @@ class User : Entity() {
     var has = ToManyRelation<Order>()
     var belongsTo = ToOneRelation.create<Role>()
 
-    fun addItem(item: Item) {
-        runCustomMutation(mutateAddItem, paramsOf("itemId" to item.id.value))
+    fun addItem(item: Item, runner: QueryRunner = DBProvider.defaultQueryRunner) {
+        runCustomMutation(mutateAddItem, paramsOf("itemId" to item.id.value), runner)
         item.pull()
     }
 
-    fun addOrder(order: Order) {
-        runCustomMutation(mutateAddOrder, paramsOf("orderId" to order.id.value))
+    fun addOrder(order: Order, runner: QueryRunner = DBProvider.defaultQueryRunner) {
+        runCustomMutation(mutateAddOrder, paramsOf("orderId" to order.id.value), runner)
         order.pull()
     }
 
-    fun setRole(role: Role) {
-        runCustomMutation(mutateAddRole, paramsOf("roleId" to role.id.value))
+    fun setRole(role: Role, runner: QueryRunner = DBProvider.defaultQueryRunner) {
+        runCustomMutation(mutateAddRole, paramsOf("roleId" to role.id.value), runner)
         role.pull()
     }
 }
