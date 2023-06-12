@@ -1,10 +1,16 @@
 MATCH (user:User)
-  WHERE id(user) = toInteger($userId)
+WHERE id(user) = toInteger($userId)
 
 MATCH (role:Role)
-  WHERE id(role) = toInteger($roleId)
+WHERE id(role) = toInteger($roleId)
 
-MERGE (user)-[:belongsTo]->(role)
-MERGE (role)-[:includes]->(user)
+// BelongsTo is ToOne relation,
+// so delete previous relations if exist
+
+OPTIONAL MATCH (user)-[b:BelongsTo]->() DELETE b
+OPTIONAL MATCH ()-[i:Includes]->(user) DELETE i
+
+MERGE (user)-[:BelongsTo]->(role)
+MERGE (role)-[:Includes]->(user)
 
 RETURN user

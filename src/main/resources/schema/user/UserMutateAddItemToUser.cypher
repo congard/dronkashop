@@ -1,10 +1,10 @@
 MATCH (user:User)
-  WHERE id(user) = toInteger($userId)
+WHERE id(user) = toInteger($userId)
 
 MATCH (item:Item)
-  WHERE id(item) = toInteger($itemId)
+WHERE id(item) = toInteger($itemId)
 
-MERGE (user)-[:sells]->(item)
-MERGE (item)-[:publishedBy]->(user)
+MERGE (user)-[:Sells]->(item)
+MERGE (item)-[:PublishedBy]->(user)
 
 RETURN user

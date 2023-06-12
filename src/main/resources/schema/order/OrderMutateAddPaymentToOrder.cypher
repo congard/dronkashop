@@ -1,10 +1,16 @@
 MATCH (order:Order)
-  WHERE id(order) = toInteger($orderId)
+WHERE id(order) = toInteger($orderId)
 
 MATCH (payment:Payment)
-  WHERE id(payment) = toInteger($paymentId)
+WHERE id(payment) = toInteger($paymentId)
 
-MERGE (order)-[:payedWith]->(payment)
+// PayedWith and belongsTo are ToOne relations,
+// so delete previous relations if exist
+
+OPTIONAL MATCH (order)-[p:PayedWith]->() DELETE p
+OPTIONAL MATCH (payment)-[b:belongsTo]->() DELETE b
+
+MERGE (order)-[:PayedWith]->(payment)
 MERGE (payment)-[:belongsTo]->(order)
 
 RETURN order
