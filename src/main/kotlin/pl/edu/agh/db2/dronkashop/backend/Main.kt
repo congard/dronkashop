@@ -29,15 +29,14 @@ fun start() {
     // val user: User = UserProvider.getById(ID(176)).also { println(it) }
     // user.removeRole(RoleProvider.getById(ID(177)))
 
-    //val order: Order = OrderProvider.getById(ID(58)).also { println(it) }
-    //order.removePayment(PaymentProvider.getById(ID(61)))
+    // val order: Order = OrderProvider.getById(ID(58)).also { println(it) }
+    // order.removePayment(PaymentProvider.getById(ID(61)))
 
     // end of testing relation removal mutations
 
 
-    /*// testing Order, Payment, Role, CategoryProvider, UserProvider
+    // testing Order, Payment, Role, CategoryProvider, UserProvider
     val order150: Order = OrderProvider.getById(ID(150)).also { println(it) }
-    println(order150.by.dst())
 
     order150.items.forEach { relation ->
         relation.dst().let {
@@ -112,5 +111,5 @@ fun start() {
         printModified()
 
         println(bread)
-    }*/
+    }
 }
