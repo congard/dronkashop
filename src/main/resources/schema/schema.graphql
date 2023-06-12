@@ -102,7 +102,10 @@ type Mutation {
     mutateUserRelations(
         _id: ID!,
         sellsAdded: [Int!],
-        sellsDeleted: [Int!]
+        sellsDeleted: [Int!],
+        hasAdded: [Int!]!,
+        hasDeleted: [Int!]!,
+        belongsTo: ID
     ): User @cypher(statement: """@embed('/schema/user/UserMutateRelations.cypher')""")
 
     addItemToCategory(

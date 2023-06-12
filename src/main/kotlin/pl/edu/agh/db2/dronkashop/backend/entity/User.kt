@@ -41,8 +41,6 @@ class User : Entity() {
     var email: String = ""
     var registrationDate: LocalDateTime = LocalDateTime.MIN
     var sells = ToManyRelation<Item>()
-
-    // TODO: add mutations
     var has = ToManyRelation<Order>()
     var belongsTo = ToOneRelation.create<Role>()
 

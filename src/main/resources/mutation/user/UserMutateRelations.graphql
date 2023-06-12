@@ -1,14 +1,26 @@
 mutation UserMutateRelations(
     $id: ID!,
     $sellsAdded: [Int!],
-    $sellsDeleted: [Int!]
+    $sellsDeleted: [Int!],
+    $hasAdded: [Int!]!,
+    $hasDeleted: [Int!]!,
+    $belongsTo: ID
 ) {
     mutateUserRelations(
         _id: $id,
         sellsAdded: $sellsAdded,
-        sellsDeleted: $sellsDeleted
+        sellsDeleted: $sellsDeleted,
+        hasAdded: $hasAdded,
+        hasDeleted: $hasDeleted,
+        belongsTo: $belongsTo
     ) {
         sells {
+            _id
+        }
+        has {
+            _id
+        }
+        belongsTo {
             _id
         }
     }
