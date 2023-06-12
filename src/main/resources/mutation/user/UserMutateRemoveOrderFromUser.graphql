@@ -1,0 +1,14 @@
+mutation UserMutateRemoveOrderFromUser(
+    $orderId: ID!,
+    $id: ID!
+) {
+    removeOrderFromUser(
+        orderId: $orderId,
+        userId: $id
+    ) {
+        _id
+        has {
+            _id
+        }
+    }
+}

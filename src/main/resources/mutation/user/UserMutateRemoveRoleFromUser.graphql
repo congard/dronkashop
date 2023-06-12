@@ -1,0 +1,14 @@
+mutation UserMutateRemoveRoleFromUser(
+    $roleId: ID!,
+    $id: ID!
+) {
+    removeRoleFromUser(
+        roleId: $roleId,
+        userId: $id
+    ) {
+        _id
+        belongsTo {
+            _id
+        }
+    }
+}

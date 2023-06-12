@@ -132,6 +132,31 @@ type Mutation {
         paymentId: ID!,
         orderId: ID!
     ): Order @cypher(statement: """@embed('/schema/order/OrderMutateAddPaymentToOrder.cypher')""")
+
+    removeItemFromCategory(
+        categoryId: ID!,
+        itemId: ID!
+    ): Category @cypher(statement: """@embed('/schema/category/CategoryMutateRemoveItemFromCategory.cypher')""")
+
+    removeRoleFromUser(
+        roleId: ID!,
+        userId: ID!
+    ): User @cypher(statement: """@embed('/schema/user/UserMutateRemoveRoleFromUser.cypher')""")
+
+    removeOrderFromUser(
+        orderId: ID!,
+        userId: ID!
+    ): User @cypher(statement: """@embed('/schema/user/UserMutateRemoveOrderFromUser.cypher')""")
+
+    removeItemFromUser(
+        itemId: ID!,
+        userId: ID!
+    ): User @cypher(statement: """@embed('/schema/user/UserMutateRemoveItemFromUser.cypher')""")
+
+    removePaymentFromOrder(
+        paymentId: ID!,
+        orderId: ID!
+    ): Order @cypher(statement: """@embed('/schema/order/OrderMutateRemovePaymentFromOrder.cypher')""")
 }
 
 type Query {
