@@ -5,8 +5,12 @@ query UserGetByName($displayName: String!) {
         login
         email
         registrationDate
-        # belongsTo
-        # has
+        belongsTo {
+            _id
+        }
+        has {
+            _id
+        }
         sells {
             _id
         }

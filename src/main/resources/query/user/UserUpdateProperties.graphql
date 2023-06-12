@@ -4,8 +4,12 @@ query UserProperties($id: ID!) {
         login
         email
         registrationDate
-        # belongsTo
-        # has
+        belongsTo {
+            _id
+        }
+        has {
+            _id
+        }
         sells {
             _id
         }
