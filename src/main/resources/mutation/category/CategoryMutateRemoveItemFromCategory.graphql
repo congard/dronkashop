@@ -1,0 +1,14 @@
+mutation CategoryMutateRemoveItemFromCategory(
+    $id: ID!,
+    $itemId: ID!
+) {
+    removeItemFromCategory(
+        categoryId: $id,
+        itemId: $itemId
+    ) {
+        _id
+        includes {
+            _id
+        }
+    }
+}

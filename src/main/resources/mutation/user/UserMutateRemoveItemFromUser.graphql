@@ -1,0 +1,14 @@
+mutation UserMutateRemoveItemFromUser(
+    $itemId: ID!,
+    $id: ID!
+) {
+    removeItemFromUser(
+        itemId: $itemId,
+        userId: $id
+    ) {
+        _id
+        sells {
+            _id
+        }
+    }
+}

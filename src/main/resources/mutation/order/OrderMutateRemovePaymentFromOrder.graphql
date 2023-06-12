@@ -1,0 +1,14 @@
+mutation OrderMutateRemovePaymentFromOrder(
+    $paymentId: ID!,
+    $id: ID!
+) {
+    removePaymentFromOrder(
+        paymentId: $paymentId,
+        orderId: $id
+    ) {
+        _id
+        payedWith {
+            _id
+        }
+    }
+}
