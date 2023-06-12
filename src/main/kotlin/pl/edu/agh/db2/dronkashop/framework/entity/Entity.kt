@@ -11,6 +11,7 @@ import pl.edu.agh.db2.dronkashop.framework.entity.exception.EntityException
 import pl.edu.agh.db2.dronkashop.framework.entity.exception.UnexpectedResponseSizeException
 import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityClass
+import pl.edu.agh.db2.dronkashop.framework.provider.EntityProvider
 import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
 import java.time.LocalDateTime
 import java.util.LinkedList
@@ -215,6 +216,20 @@ abstract class Entity {
         val (oneToManyAdded, oneToManyRemoved) = getChangedToManyRelations()
         return oneToManyAdded.any { entry -> entry.value.isNotEmpty() } ||
                 oneToManyRemoved.any { entry -> entry.value.isNotEmpty() }
+    }
+
+    protected fun runCustomMutation(
+        mutation: GraphQLQuery,
+        params: Params,
+        runner: QueryRunner = DBProvider.defaultQueryRunner
+    ) = runner.run {
+        val result = runGraphQL(mutation, params.also { it["id"] = id.value })
+        val records = result.list()
+
+        if (records.size != 1)
+            throw UnexpectedResponseSizeException(records.size)
+
+        EntityProvider.merge(this@Entity::class, records[0][0])
     }
 
     private fun runAndDeserialize(query: GraphQLQuery, params: Params, runner: QueryRunner) = runner.run {
