@@ -2,11 +2,12 @@ package pl.edu.agh.db2.dronkashop.backend.entity
 
 import pl.edu.agh.db2.dronkashop.backend.Resource
 import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
+import pl.edu.agh.db2.dronkashop.framework.core.paramsOf
 import pl.edu.agh.db2.dronkashop.framework.entity.Entity
 import pl.edu.agh.db2.dronkashop.framework.entity.ToManyRelation
 import pl.edu.agh.db2.dronkashop.framework.entity.ToOneRelation
+import pl.edu.agh.db2.dronkashop.framework.entity.annotations.Ignore
 import java.time.LocalDateTime
-import java.util.*
 
 class Order : Entity()  {
     override val updatePropertiesQuery: GraphQLQuery =
@@ -21,6 +22,10 @@ class Order : Entity()  {
     override val createNodeQuery: GraphQLQuery =
         Resource.gets("/mutation/order/OrderCreate.graphql")
 
+    @Ignore
+    private val mutateAddPayment: GraphQLQuery =
+        Resource.gets("/mutation/order/OrderMutateAddPaymentToOrder.graphql")
+
     var isPayed: Boolean = false
     var isCancelled: Boolean = false
     var date: LocalDateTime = LocalDateTime.MIN
@@ -31,4 +36,12 @@ class Order : Entity()  {
     fun addItems(items: List<Item>) {
         TODO()
     }
+
+    fun setPayment(payment: Payment) {
+        runCustomMutation(mutateAddPayment, paramsOf("paymentId" to payment.id.value))
+        payment.pull()
+    }
+
+    fun setCustomer(user: User) =
+        user.addOrder(this)
 }

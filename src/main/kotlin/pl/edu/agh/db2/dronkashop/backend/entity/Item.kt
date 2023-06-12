@@ -28,4 +28,10 @@ class Item : Entity() {
     var isDiscontinued: Boolean = true
     var belongsTo = ToManyRelation<Category>()
     var publishedBy = ToOneRelation.create<User>()
+
+    fun addToCategory(category: Category) =
+        category.addItem(this)
+
+    fun setSupplier(user: User) =
+        user.addItem(this)
 }

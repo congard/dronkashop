@@ -24,4 +24,7 @@ class Role : Entity() {
     var name: String = ""
     var description: String = ""
     var includes = ToManyRelation<User>()
+
+    fun addUser(user: User) =
+        user.setRole(this)
 }

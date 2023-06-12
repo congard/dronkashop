@@ -37,7 +37,9 @@ fun start() {
     println(roleListClient.first().description)
 
     val category23: Category = CategoryProvider.getById(ID(23)).also { println(it) }
-    println(category23.name)
+    println(category23.apply {
+        // category23.addItem(ItemProvider.getByName("Test Item")[1])
+    })
 //    category23.also {
 //        it.description = "Przekąski Test"
 //        it.includes.add(Relation.create(ID(174)))

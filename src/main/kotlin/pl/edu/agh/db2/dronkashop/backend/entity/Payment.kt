@@ -24,4 +24,7 @@ class Payment : Entity() {
     var amount: Float = -1.0f
     var type: String = ""
     var belongsTo = ToOneRelation.create<Order>()
+
+    fun setOrder(order: Order) =
+        order.setPayment(this)
 }
