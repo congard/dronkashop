@@ -8,6 +8,7 @@ import pl.edu.agh.db2.dronkashop.framework.core.Params
 import pl.edu.agh.db2.dronkashop.framework.entity.exception.EmptyQueryException
 import pl.edu.agh.db2.dronkashop.framework.entity.exception.EntityAlreadyExistsException
 import pl.edu.agh.db2.dronkashop.framework.entity.exception.EntityException
+import pl.edu.agh.db2.dronkashop.framework.entity.exception.UnexpectedResponseSizeException
 import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityClass
 import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
@@ -221,7 +222,7 @@ abstract class Entity {
         val list = result.list()
 
         if (list.size != 1)
-            throw EntityException("Unexpected response size: expected 1 record, got ${list.size}")
+            throw UnexpectedResponseSizeException(list.size)
 
         deserialize(list[0][0])
     }
