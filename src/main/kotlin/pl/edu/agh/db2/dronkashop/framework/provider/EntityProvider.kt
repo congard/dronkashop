@@ -3,6 +3,7 @@ package pl.edu.agh.db2.dronkashop.framework.provider
 import org.neo4j.driver.Value
 import pl.edu.agh.db2.dronkashop.framework.entity.Entity
 import pl.edu.agh.db2.dronkashop.framework.core.ID
+import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.reflect.KClass
@@ -33,7 +34,12 @@ object EntityProvider {
     inline fun <reified T : Entity> getEntityById(id: ID): T? =
         getEntityById(T::class, id) as T?
 
-    fun entityById(klass: EntityClass, id: ID, incomplete: Boolean = false): Entity {
+    fun entityById(
+        klass: EntityClass,
+        id: ID,
+        incomplete: Boolean = false,
+        runner: QueryRunner = DBProvider.defaultQueryRunner
+    ): Entity {
         // if exists then return
         getEntityById(klass, id)?.also {
             return it
@@ -44,13 +50,16 @@ object EntityProvider {
             it.id = id
 
             if (!incomplete) {
-                it.pull()
+                it.pull(runner)
             }
         }
     }
 
-    inline fun <reified T : Entity> entityById(id: ID): T =
-        entityById(T::class, id) as T
+    inline fun <reified T : Entity> entityById(
+        id: ID,
+        incomplete: Boolean = false,
+        runner: QueryRunner = DBProvider.defaultQueryRunner
+    ): T = entityById(T::class, id, incomplete, runner) as T
 
     fun exists(klass: EntityClass, id: ID): Boolean =
         getEntityById(klass, id) != null
