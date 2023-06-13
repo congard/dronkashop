@@ -9,7 +9,7 @@ import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityProvider.entityById
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityProvider.merge
 import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
-import java.util.LinkedList
+import java.util.*
 
 object ItemProvider {
     private val byNameQuery: GraphQLQuery =

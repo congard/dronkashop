@@ -2,7 +2,7 @@ package pl.edu.agh.db2.dronkashop.framework.runner
 
 import org.neo4j.driver.Result
 import pl.edu.agh.db2.dronkashop.framework.provider.DBProvider
-import java.util.Optional
+import java.util.*
 
 class SessionQueryRunner : QueryRunner() {
     private val session = DBProvider.session()

@@ -1,11 +1,10 @@
 package pl.edu.agh.db2.dronkashop.framework.provider
 
 import org.neo4j.driver.Value
-import pl.edu.agh.db2.dronkashop.framework.entity.Entity
 import pl.edu.agh.db2.dronkashop.framework.core.ID
+import pl.edu.agh.db2.dronkashop.framework.entity.Entity
 import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
 import java.util.*
-import kotlin.collections.HashMap
 import kotlin.reflect.KClass
 import kotlin.reflect.full.createInstance
 

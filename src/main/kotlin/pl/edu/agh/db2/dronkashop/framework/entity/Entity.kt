@@ -1,10 +1,10 @@
 package pl.edu.agh.db2.dronkashop.framework.entity
 
 import org.neo4j.driver.Value
-import pl.edu.agh.db2.dronkashop.framework.entity.annotations.Ignore
 import pl.edu.agh.db2.dronkashop.framework.core.GraphQLQuery
 import pl.edu.agh.db2.dronkashop.framework.core.ID
 import pl.edu.agh.db2.dronkashop.framework.core.Params
+import pl.edu.agh.db2.dronkashop.framework.entity.annotations.Ignore
 import pl.edu.agh.db2.dronkashop.framework.entity.exception.EmptyQueryException
 import pl.edu.agh.db2.dronkashop.framework.entity.exception.EntityAlreadyExistsException
 import pl.edu.agh.db2.dronkashop.framework.entity.exception.EntityException
@@ -14,7 +14,7 @@ import pl.edu.agh.db2.dronkashop.framework.provider.EntityClass
 import pl.edu.agh.db2.dronkashop.framework.provider.EntityProvider
 import pl.edu.agh.db2.dronkashop.framework.runner.QueryRunner
 import java.time.LocalDateTime
-import java.util.LinkedList
+import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KTypeProjection
