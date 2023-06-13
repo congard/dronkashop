@@ -47,14 +47,14 @@ class Order : Entity()  {
         runCustomMutation(mutateAddPayment, paramsOf("paymentId" to payment.id.value), runner)
         payment.pull()
     }
-    fun removePayment(payment: Payment) {
-        runCustomMutation(mutateRemovePayment, paramsOf("paymentId" to payment.id.value))
+    fun removePayment(payment: Payment, runner: QueryRunner = DBProvider.defaultQueryRunner) {
+        runCustomMutation(mutateRemovePayment, paramsOf("paymentId" to payment.id.value), runner)
         payment.pull()
     }
 
     fun setCustomer(user: User, runner: QueryRunner = DBProvider.defaultQueryRunner) =
         user.addOrder(this, runner)
 
-    fun removeFromCustomer(user: User) =
-        user.removeOrder(this)
+    fun removeFromCustomer(user: User, runner: QueryRunner = DBProvider.defaultQueryRunner) =
+        user.removeOrder(this, runner)
 }

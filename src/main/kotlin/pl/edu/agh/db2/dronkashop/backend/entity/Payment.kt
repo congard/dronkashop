@@ -30,7 +30,7 @@ class Payment : Entity() {
     fun setOrder(order: Order, runner: QueryRunner = DBProvider.defaultQueryRunner) =
         order.setPayment(this, runner)
 
-    fun removeFromOrder(order: Order) =
-        order.removePayment(this)
+    fun removeFromOrder(order: Order, runner: QueryRunner = DBProvider.defaultQueryRunner) =
+        order.removePayment(this, runner)
 
 }

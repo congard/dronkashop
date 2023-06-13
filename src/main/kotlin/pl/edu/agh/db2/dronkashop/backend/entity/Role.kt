@@ -30,7 +30,6 @@ class Role : Entity() {
     fun addUser(user: User, runner: QueryRunner = DBProvider.defaultQueryRunner) =
         user.setRole(this, runner)
 
-    fun removeUser(user: User) =
-        user.removeRole(this)
-
+    fun removeUser(user: User, runner: QueryRunner = DBProvider.defaultQueryRunner) =
+        user.removeRole(this, runner)
 }

@@ -39,8 +39,8 @@ class Category : Entity() {
         item.pull()
     }
 
-    fun removeItem(item: Item) {
-        runCustomMutation(mutateRemoveItem, paramsOf("itemId" to item.id.value))
+    fun removeItem(item: Item, runner: QueryRunner = DBProvider.defaultQueryRunner) {
+        runCustomMutation(mutateRemoveItem, paramsOf("itemId" to item.id.value), runner)
         item.pull()
     }
 }

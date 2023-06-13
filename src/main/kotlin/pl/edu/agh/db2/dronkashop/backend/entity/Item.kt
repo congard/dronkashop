@@ -34,11 +34,11 @@ class Item : Entity() {
     fun addToCategory(category: Category, runner: QueryRunner = DBProvider.defaultQueryRunner) =
         category.addItem(this, runner)
 
-    fun removeFromCategory(category: Category) =
-        category.removeItem(this)
+    fun removeFromCategory(category: Category, runner: QueryRunner = DBProvider.defaultQueryRunner) =
+        category.removeItem(this, runner)
 
-    fun removeFromUser(user: User) =
-        user.removeItem(this)
+    fun removeFromUser(user: User, runner: QueryRunner = DBProvider.defaultQueryRunner) =
+        user.removeItem(this, runner)
 
     fun setSupplier(user: User, runner: QueryRunner = DBProvider.defaultQueryRunner) =
         user.addItem(this, runner)

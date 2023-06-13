@@ -63,8 +63,8 @@ class User : Entity() {
         item.pull()
     }
 
-    fun removeItem(item: Item) {
-        runCustomMutation(mutateRemoveItem, paramsOf("itemId" to item.id.value))
+    fun removeItem(item: Item, runner: QueryRunner = DBProvider.defaultQueryRunner) {
+        runCustomMutation(mutateRemoveItem, paramsOf("itemId" to item.id.value), runner)
         item.pull()
     }
 
@@ -73,8 +73,8 @@ class User : Entity() {
         order.pull()
     }
 
-    fun removeOrder(order: Order) {
-        runCustomMutation(mutateRemoveOrder, paramsOf("orderId" to order.id.value))
+    fun removeOrder(order: Order, runner: QueryRunner = DBProvider.defaultQueryRunner) {
+        runCustomMutation(mutateRemoveOrder, paramsOf("orderId" to order.id.value), runner)
         order.pull()
     }
 
@@ -83,8 +83,8 @@ class User : Entity() {
         role.pull()
     }
 
-    fun removeRole(role: Role) {
-        runCustomMutation(mutateRemoveRole, paramsOf("roleId" to role.id.value))
+    fun removeRole(role: Role, runner: QueryRunner = DBProvider.defaultQueryRunner) {
+        runCustomMutation(mutateRemoveRole, paramsOf("roleId" to role.id.value), runner)
         role.pull()
     }
 }
