@@ -17,6 +17,9 @@ typealias EntityClass = KClass<out Entity>
 object EntityProvider {
     private val entities = HashMap<EntityClass, MutableList<Entity>>()
 
+    /**
+     * Returns entities of class `klass`
+     */
     private fun getEntities(klass: EntityClass): MutableList<Entity> {
         if (entities.containsKey(klass))
             return entities[klass]!!
@@ -28,12 +31,22 @@ object EntityProvider {
     private fun createEntity(klass: EntityClass): Entity =
         klass.createInstance().also { getEntities(klass).add(it) }
 
+    /**
+     * Returns cached Entity by its id, if Entity hasn't been
+     * cached yet, then returns null
+     */
     fun getEntityById(klass: EntityClass, id: ID): Entity? =
         getEntities(klass).find { item -> item.id == id }
 
     inline fun <reified T : Entity> getEntityById(id: ID): T? =
         getEntityById(T::class, id) as T?
 
+    /**
+     * Returns Entity of class `klass` with id `id`.
+     * If Entity hasn't been pulled yet and `incomplete`
+     * is set to `true`, then `Entity#pull()` will not be
+     * called
+     */
     fun entityById(
         klass: EntityClass,
         id: ID,
@@ -61,12 +74,20 @@ object EntityProvider {
         runner: QueryRunner = DBProvider.defaultQueryRunner
     ): T = entityById(T::class, id, incomplete, runner) as T
 
+    /**
+     * Checks whether entity with the specified id has been
+     * already pulled or not
+     */
     fun exists(klass: EntityClass, id: ID): Boolean =
         getEntityById(klass, id) != null
 
     inline fun <reified T : Entity> exists(id: ID): Boolean =
         exists(T::class, id)
 
+    /**
+     * Merges Entity of class `klass` with value `value`
+     * Note: `value` must contain the `_id` key
+     */
     fun merge(klass: EntityClass, value: Value): Entity =
         getEntityById(klass, ID(value["_id"].asInt()))?.also { entity ->
             entity.deserialize(value)
