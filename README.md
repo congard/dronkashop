@@ -65,6 +65,7 @@ Korzystamy z bibliotek napisanych w Kotlinie – a więc też używamy Kotlina.
 2. [API Reference](https://neo4j.com/docs/api/java-driver/current/)
 3. [Cypher](https://neo4j.com/docs/cypher-manual/current/introduction/)
 4. **[Workspace](https://workspace-preview.neo4j.io/)**
+5. [Session API](https://neo4j.com/docs/java-manual/current/session-api/)
 
 ### GraphQL
 
@@ -78,3 +79,4 @@ Korzystamy z bibliotek napisanych w Kotlinie – a więc też używamy Kotlina.
 2. [Conditional Cypher Execution (docs)](https://neo4j.com/docs/apoc/current/cypher-execution/conditionals/)
 3. [CALL {} (subquery)](https://neo4j.com/docs/cypher-manual/current/clauses/call-subquery/)
 4. [Stackoverflow: Cypher query with chaining does not propagate](https://stackoverflow.com/questions/75604080/cypher-query-with-chaining-does-not-propagate)
+5. [SET](https://neo4j.com/docs/cypher-manual/current/clauses/set/)
