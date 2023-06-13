@@ -60,7 +60,7 @@ run {
     if (!credentialsFile.exists())
         throw RuntimeException("File $credentialsFile not found")
 
-    val (uri, user, password) = credentialsFile.readText().split("\n").also {
+    val (uri, user, password) = credentialsFile.readText().split(Regex("\\r?\\n|\\r")).also {
         if (it.size < 3) {
             throw RuntimeException(
                 "Invalid credentials file: 3 lines expected (uri, user, password); got: ${it.size}")
