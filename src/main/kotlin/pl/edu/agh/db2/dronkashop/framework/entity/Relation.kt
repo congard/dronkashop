@@ -63,5 +63,8 @@ class Relation<T>(
     companion object {
         inline fun <reified T : Entity> create(to: ID = ID.INVALID) =
             Relation(T::class).apply { if (to != ID.INVALID) configure(to) }
+
+        inline fun <reified T : Entity> create(to: T) =
+            Relation(T::class).apply { configure(to.id) }
     }
 }
