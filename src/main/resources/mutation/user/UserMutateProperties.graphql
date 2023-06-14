@@ -6,7 +6,7 @@ mutation UserMutateProperties(
 ) {
     mergeUser(
         _id: $id,
-        displayName: $name,
+        displayName: $displayName,
         login: $login,
         email: $email
     ) {
