@@ -1,5 +1,11 @@
 # DronkaShop
 
+## Autorzy
+- Danylo Knapp
+- Kacper Słoniec
+- Bartłomiej Szymański
+
+
 ## Structure
 
 The project consists of:
